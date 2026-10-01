@@ -14,6 +14,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const isApi = pathname.startsWith('/api/');
   const isAdminArea = pathname === '/admin' || pathname.startsWith('/admin/') || pathname.startsWith('/api/admin/');
 
+  // One canonical host: www.example.com goes to the address set in Settings
+  const host = context.request.headers.get('host') ?? '';
+  const canonical = getContent().settings.siteUrl;
+  if (host === `www.${new URL(canonical).host}` && (method === 'GET' || method === 'HEAD')) {
+    return context.redirect(canonical + pathname + context.url.search, 301);
+  }
+
   context.locals.isAdmin = verifySession(context.cookies.get(SESSION_COOKIE)?.value);
 
   // Cross-site requests must not be able to change anything
