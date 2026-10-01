@@ -73,7 +73,7 @@ Problems found in the first draft of the plan and what changed:
 
 ## Verification (2026-10-01)
 
-- `npm test`: 52 tests pass. `npm run check`: 0 errors. `npm run build`: clean.
+- `npm test`: 58 tests pass. `npm run check`: 0 errors. `npm run build`: clean.
 - Layout compared against `legacy/index.html` in Chrome at 1440, 1000 and 390 px:
   position, size, font and colour of ~300 elements across 46 selectors. Identical
   at 1440 and 1000; at 390 three elements differ by 1 px of rounding. Page heights equal.
@@ -86,8 +86,11 @@ Problems found in the first draft of the plan and what changed:
 - Against the built server with curl: redirects, cross-site POST refused (403),
   login rate limit, image and video upload, 80 MB upload, HTTP range requests,
   non-media upload refused, security headers.
-- **Not verified:** the Docker image (Docker was not running on this machine);
-  SMTP delivery (no mail server configured); Safari and real phones.
+- `npm run dev` checked: pages, sign-in, admin script and content API all respond.
+- Docker image built and run: pages, sign-in, image upload (sharp on Linux) and the
+  contact form work; enquiries and uploads survive a container restart on the
+  `/data` volume; the process runs as the unprivileged `node` user. Image is 666 MB.
+- **Not verified:** SMTP delivery (no mail server configured); Safari and real phones.
 
 ## Deviations from `legacy/index.html`
 
