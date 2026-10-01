@@ -30,8 +30,8 @@ describe('markdown', () => {
 });
 
 describe('helpers', () => {
-  it('joins dotted items with non-breaking spaces', () => {
-    expect(dotted('A · B·C')).toBe('A · B · C');
+  it('spaces dotted items like the original markup', () => {
+    expect(dotted('A · B·C')).toBe('A \u00a0\u00b7\u00a0 B \u00a0\u00b7\u00a0 C');
   });
 
   it('fills in the year', () => {

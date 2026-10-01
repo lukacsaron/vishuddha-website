@@ -4,7 +4,7 @@ import { SESSION_COOKIE, sameOrigin, verifySession } from './cms/auth';
 const json = (status: number, error: string) =>
   new Response(JSON.stringify({ error }), { status, headers: { 'Content-Type': 'application/json' } });
 
-export const onRequest = defineMiddleware((context, next) => {
+export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
   const { method } = context.request;
   const isApi = pathname.startsWith('/api/');
@@ -21,5 +21,11 @@ export const onRequest = defineMiddleware((context, next) => {
     return pathname.startsWith('/api/') ? json(401, 'Not signed in') : context.redirect('/admin/login');
   }
 
-  return next();
+  const response = await next();
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+  // The YouTube player in the lightbox refuses to start without a referrer
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  if (isAdminArea) response.headers.set('Cache-Control', 'no-store');
+  return response;
 });

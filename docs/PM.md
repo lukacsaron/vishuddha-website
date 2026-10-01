@@ -10,15 +10,15 @@ Design: `docs/specs/2026-10-01-site-and-cms-design.md`.
 | 0 | Read and inventory `index.html`, `hu.html`, the `.bak`, all assets | done |
 | 1 | Goal prompt, git repo, legacy import | done |
 | 2 | Architecture decision, design spec, plan, plan review | done |
-| 3 | Scaffold Astro 7 + Node adapter, seed media pipeline | todo |
-| 4 | Content schema, seed (EN + HU), store with history | todo |
-| 5 | Public site port: layout, all sections, script, legal pages, HU placeholder | todo |
-| 6 | Auth, middleware, admin API, uploads | todo |
-| 7 | Admin UI: content editor, enquiries, media, history | todo |
-| 8 | Contact endpoint, SMTP notification | todo |
-| 9 | SEO: meta, JSON-LD, sitemap, robots, redirects | todo |
-| 10 | Tests, build, smoke test, browser comparison with legacy | todo |
-| 11 | Dockerfile, README, final review | todo |
+| 3 | Scaffold Astro 7 + Node adapter, seed media pipeline | done |
+| 4 | Content schema, seed (EN + HU), store with history | done |
+| 5 | Public site port: layout, all sections, script, legal pages, HU placeholder | done |
+| 6 | Auth, middleware, admin API, uploads | done |
+| 7 | Admin UI: content editor, enquiries, media, history | done |
+| 8 | Contact endpoint, SMTP notification | done |
+| 9 | SEO: meta, JSON-LD, sitemap, robots, redirects | done |
+| 10 | Tests, build, smoke test, browser comparison with legacy | done |
+| 11 | Dockerfile, README, final review | done |
 
 ## Plan (build order)
 
@@ -71,10 +71,58 @@ Problems found in the first draft of the plan and what changed:
 4. Saves go live immediately; rollback via History instead of drafts.
 5. Admin UI is in English.
 
+## Verification (2026-10-01)
+
+- `npm test`: 52 tests pass. `npm run check`: 0 errors. `npm run build`: clean.
+- Layout compared against `legacy/index.html` in Chrome at 1440, 1000 and 390 px:
+  position, size, font and colour of ~300 elements across 46 selectors. Identical
+  at 1440 and 1000; at 390 three elements differ by 1 px of rounding. Page heights equal.
+- Behaviour checked in the browser: preloader, rolling words, gallery toggle,
+  lightbox open/close, active nav, scroll progress, custom select, form validation,
+  real form submission, thank-you state.
+- Admin checked in the browser: sign-in, editing with focus kept, list reorder,
+  validation message on a bad value, save, public page updated, Hungarian switch,
+  history restore, stale-save rejection (409).
+- Against the built server with curl: redirects, cross-site POST refused (403),
+  login rate limit, image and video upload, 80 MB upload, HTTP range requests,
+  non-media upload refused, security headers.
+- **Not verified:** the Docker image (Docker was not running on this machine);
+  SMTP delivery (no mail server configured); Safari and real phones.
+
 ## Deviations from `legacy/index.html`
 
-Filled in as the build goes.
+Deliberate, all small:
+
+1. Facebook and LinkedIn footer icons are hidden until a link is entered (they
+   pointed at `#`).
+2. The Photography section shows the dashed placeholder box instead of a broken
+   image (`services/photography.png` was never in the folder).
+3. Privacy and Terms links go to real pages (`/privacy`, `/terms`) that say they
+   are being prepared, instead of dead `#privacy` / `#terms` anchors.
+4. The contact form really sends, and shows an error if sending fails.
+5. Montserrat is self-hosted instead of loaded from Google Fonts (GDPR, speed).
+6. Images are WebP at display size: seed media went from ~41 MB to 6.2 MB, of
+   which the hero video is 4.4 MB. The hero has a poster frame while the video loads.
+7. Social share image and favicon now exist (logo on brand blue); the original
+   referenced an `og-image.jpg` and `logo.png` that were missing.
+8. The `hreflang="hu"` tag is only emitted while the Hungarian site is live.
+9. Copyright year is automatic. A `<noscript>` rule keeps the page visible without JS.
+10. Unused CSS from the original (stats band, service cards) was kept, untouched.
 
 ## Open items for the owners
 
-Filled in as the build goes.
+1. **Photography photo**: upload one under Services.
+2. **Privacy Policy and Terms**: paste the texts under Legal pages. The form's
+   consent line links to the Privacy Policy, so this should precede launch.
+3. **Hungarian texts**: review, then switch on in Settings. Came from the old
+   translation; these had no source and were translated by me: menu labels,
+   hero button, gallery button and tile captions, project service names, form
+   error messages, "Legal" heading, legal page titles. Nikolett's Hungarian bio
+   is a different text from the English one (it was that way in the source).
+4. **Facebook / LinkedIn links**, if they exist.
+5. **Gallery**: 24 of 29 tiles are still empty placeholders, as in the original.
+   Fill or delete them.
+6. **Hosting**: needs a Node/container host with a persistent volume; choose one,
+   set `ADMIN_PASSWORD`, and optionally SMTP for enquiry emails.
+7. The seed still contains "Budapest-based creative agency" in the SEO description
+   and "micro-production company" on the page, as the original did.

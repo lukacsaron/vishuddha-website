@@ -14,9 +14,9 @@ export function inline(s: string): string {
     SAFE_HREF.test(href) ? `<a href="${href}">${label}</a>` : whole);
 }
 
-/** "A · B · C" with non-breaking spaces around the dots, as in the original hero line. */
+/** "A · B · C" spaced exactly like the original hero line: space, nbsp, dot, nbsp, space. */
 export const dotted = (s: string): string =>
-  s.split('·').map((part) => part.trim()).join(' · ');
+  s.split('·').map((part) => part.trim()).join(' \u00a0\u00b7\u00a0 ');
 
 /** Markdown for the legal pages. Raw HTML in the source is shown as text, not executed. */
 export function markdown(s: string): string {
