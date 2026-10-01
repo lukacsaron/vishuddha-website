@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { t, type Content, type Lang } from '../cms/schema';
+import { markdown } from '../cms/text';
+
+interface Props { content: Content; lang: Lang; page: 'privacy' | 'terms' }
+const { content, lang, page } = Astro.props;
+const doc = content.legal[page];
+const body = t(doc.body, lang).trim();
+const title = t(doc.title, lang);
+const paths = { en: `/${page}`, hu: `/hu/${page}` };
+const home = lang === 'hu' ? '/hu/' : '/';
+---
+<Base {content} {lang} {paths} title={`${title} | Vishuddha Productions`} description={title} noindex={!body}>
+  <Header {content} {lang} {paths} {home} />
+  <main class="legal-page">
+    <h1 class="section-title">{title}</h1>
+    {body
+      ? <div class="legal-body" set:html={markdown(body)} />
+      : <p class="section-body">{t(content.legal.empty, lang)}</p>}
+  </main>
+  <Footer {content} {lang} {home} />
+</Base>

@@ -1,0 +1,27 @@
+/* Additions to the original stylesheet (site.css stays a verbatim port). */
+
+.btn-submit:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+/* Spam trap: present for bots, out of reach for people */
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+#back-top { cursor: pointer; }
+
+/* ── LEGAL PAGES ── */
+.legal-page { max-width: 800px; margin: 0 auto; padding: 170px 60px 100px; min-height: 70vh; }
+.legal-body { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.85; }
+.legal-body h2, .legal-body h3 { color: var(--white); font-weight: 700; margin: 36px 0 12px; }
+.legal-body h2 { font-size: 22px; }
+.legal-body h3 { font-size: 17px; }
+.legal-body p, .legal-body ul, .legal-body ol { margin-bottom: 16px; }
+.legal-body ul, .legal-body ol { padding-left: 22px; }
+.legal-body a { color: var(--white); }
+@media (max-width: 900px) { .legal-page { padding: 130px 20px 60px; } }
+
+/* ── ADMIN PREVIEW NOTE ── */
+.preview-note {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 600;
+  background: var(--red); color: var(--white);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-align: center; padding: 9px 16px;
+}
+.preview-note a { color: var(--white); }

@@ -1,0 +1,53 @@
+---
+import '@fontsource-variable/montserrat';
+import '../../admin/admin.css';
+import { SESSION_COOKIE, SESSION_TTL_S, checkPassword, createSession, loginLimiter } from '../../cms/auth';
+import { env } from '../../cms/env';
+
+if (Astro.locals.isAdmin) return Astro.redirect('/admin');
+
+let error = '';
+if (!env.adminPassword) {
+  error = 'No admin password is configured. Set ADMIN_PASSWORD in the environment and restart.';
+} else if (Astro.request.method === 'POST') {
+  const ip = Astro.clientAddress;
+  if (!loginLimiter.allowed(ip)) {
+    error = 'Too many attempts. Try again in 15 minutes.';
+  } else {
+    const password = String((await Astro.request.formData()).get('password') ?? '');
+    if (checkPassword(password)) {
+      loginLimiter.reset(ip);
+      Astro.cookies.set(SESSION_COOKIE, createSession(), {
+        path: '/',
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: env.isProd && Astro.url.protocol === 'https:' || Astro.request.headers.get('x-forwarded-proto') === 'https',
+        maxAge: SESSION_TTL_S,
+      });
+      return Astro.redirect('/admin', 303);
+    }
+    loginLimiter.hit(ip);
+    error = 'Wrong password.';
+  }
+}
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Sign in · Vishuddha admin</title>
+  <link rel="icon" href="/favicon.png" type="image/png" />
+</head>
+<body class="login">
+  <form method="post" class="login-card">
+    <img src="/media/logo.webp" alt="Vishuddha Productions" width="831" height="439" />
+    <label for="password">Admin password</label>
+    <input type="password" id="password" name="password" autocomplete="current-password" autofocus required />
+    {error && <p class="login-error" role="alert">{error}</p>}
+    <button type="submit" class="btn primary">Sign in</button>
+    <a href="/">Back to the site</a>
+  </form>
+</body>
+</html>

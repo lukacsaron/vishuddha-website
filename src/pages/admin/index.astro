@@ -1,0 +1,38 @@
+---
+import '@fontsource-variable/montserrat';
+import '../../admin/admin.css';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Vishuddha admin</title>
+  <link rel="icon" href="/favicon.png" type="image/png" />
+</head>
+<body class="admin">
+  <aside class="sidebar">
+    <a href="/" target="_blank" rel="noopener" class="sidebar-logo">
+      <img src="/media/logo.webp" alt="Vishuddha Productions" width="831" height="439" />
+    </a>
+    <nav id="nav" aria-label="Admin sections"></nav>
+    <form method="post" action="/admin/logout" class="sidebar-foot">
+      <a href="/" target="_blank" rel="noopener">View site ↗</a>
+      <a href="/hu/" target="_blank" rel="noopener">View HU ↗</a>
+      <button type="submit">Sign out</button>
+    </form>
+  </aside>
+
+  <div class="workspace">
+    <div class="topbar">
+      <span id="status" class="status" aria-live="polite">Loading…</span>
+      <button id="save" type="button" class="btn primary" disabled>Save changes</button>
+    </div>
+    <main id="main"></main>
+  </div>
+
+  <div id="toasts" aria-live="polite"></div>
+  <script src="../../admin/app.ts"></script>
+</body>
+</html>

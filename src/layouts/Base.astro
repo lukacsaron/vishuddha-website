@@ -1,0 +1,105 @@
+---
+import '@fontsource-variable/montserrat';
+import '../styles/site.css';
+import '../styles/extras.css';
+import { t, type Content, type Lang } from '../cms/schema';
+
+interface Props {
+  content: Content;
+  lang: Lang;
+  /** Path of this page in each language, e.g. { en: '/', hu: '/hu/' } */
+  paths: Record<Lang, string>;
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  preloader?: boolean;
+  schema?: boolean;
+}
+
+const { content, lang, paths, noindex = false, preloader = false, schema = false } = Astro.props;
+const { seo, settings, contact, social } = content;
+const title = Astro.props.title ?? t(seo.title, lang);
+const description = Astro.props.description ?? t(seo.description, lang);
+const abs = (p: string) => (/^https?:/.test(p) ? p : settings.siteUrl + p);
+const ogImage = seo.ogImage ? abs(seo.ogImage) : '';
+const tel = contact.phone.replace(/[^\d+]/g, '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Vishuddha Productions',
+  description,
+  url: settings.siteUrl,
+  telephone: tel,
+  email: contact.email,
+  logo: abs('/media/logo.webp'),
+  ...(ogImage && { image: ogImage }),
+  address: { '@type': 'PostalAddress', addressLocality: 'Budapest', addressCountry: 'HU' },
+  areaServed: { '@type': 'Country', name: 'Hungary' },
+  sameAs: [social.instagram, social.facebook, social.linkedin].filter(Boolean),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Services',
+    itemListElement: ['Social Media Management', 'PPC Advertising', 'Film Production', 'Photography'].map((name) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name },
+    })),
+  },
+};
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {t(seo.keywords, lang) && <meta name="keywords" content={t(seo.keywords, lang)} />}
+  {noindex && <meta name="robots" content="noindex, follow" />}
+  <link rel="canonical" href={abs(paths[lang])} />
+
+  <link rel="alternate" hreflang="en" href={abs(paths.en)} />
+  {settings.huEnabled && <link rel="alternate" hreflang="hu" href={abs(paths.hu)} />}
+  <link rel="alternate" hreflang="x-default" href={abs(paths.en)} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={abs(paths[lang])} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta property="og:locale" content={lang === 'hu' ? 'hu_HU' : 'en_GB'} />
+  <meta property="og:site_name" content="Vishuddha Productions" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
+
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <!-- Fetch the logo before the body is even parsed: the loading screen shows it first -->
+  <link rel="preload" as="image" href="/media/logo.webp" fetchpriority="high" />
+  <noscript><style>#preloader { display: none; } .reveal { opacity: 1; transform: none; }</style></noscript>
+</head>
+<body>
+  {preloader && (
+    <div id="preloader">
+      <img src="/media/logo.webp" alt="" class="preloader-logo" id="preloaderLogo" width="831" height="439" fetchpriority="high" />
+      <div class="preloader-line" id="preloaderLine"></div>
+    </div>
+  )}
+  <div id="scroll-progress"></div>
+
+  <slot />
+
+  <button id="back-top" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <script src="../scripts/site.js"></script>
+</body>
+</html>

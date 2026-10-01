@@ -1,0 +1,26 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+
+interface Props { brands: Content['brands']; lang: Lang }
+const { brands, lang } = Astro.props;
+const logos = brands.logos.filter((logo) => logo.image);
+// The track is rendered twice: the marquee animates it by -50% and loops seamlessly
+const track = [...logos, ...logos];
+---
+{logos.length > 0 && (
+  <div class="brands-inline reveal">
+    <p class="brands-label">{t(brands.label, lang)}</p>
+    <div class="slider-wrap">
+      <div class="slider-track">
+        {track.map((logo, i) => (
+          <img
+            src={logo.image}
+            alt={i < logos.length ? logo.name : ''}
+            aria-hidden={i < logos.length ? undefined : 'true'}
+            class:list={['logo-item-img', logo.size !== 'md' && `logo-${logo.size}`]}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+)}

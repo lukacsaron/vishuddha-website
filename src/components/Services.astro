@@ -1,0 +1,55 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+import Br from './Br.astro';
+
+interface Props { intro: Content['intro']; services: Content['services']; lang: Lang }
+const { intro, services, lang } = Astro.props;
+---
+<section class="services-section" id="services" data-nav="services">
+  <div class="services-header">
+    <div class="reveal">
+      <p class="section-label">{t(intro.label, lang)}</p>
+      <h2 class="section-title"><Br text={t(intro.title, lang)} /></h2>
+    </div>
+    <div class="reveal">
+      <p class="section-body">{t(intro.body, lang)}</p>
+    </div>
+  </div>
+</section>
+
+<div class="figure-divider">
+  <img src="/media/figure.webp" alt="" aria-hidden="true" class="figure-img" />
+  <img src="/media/figure.webp" alt="" aria-hidden="true" class="figure-img" />
+  <img src="/media/figure.webp" alt="" aria-hidden="true" class="figure-img" />
+</div>
+
+{services.map((service, i) => (
+  <Fragment>
+    <div class="divider-line"></div>
+    <section id={service.anchor} data-nav="services" class:list={['split-section', 'reveal', i % 2 === 1 && 'reverse']}>
+      <div class="split-text">
+        <p class="section-label">{t(service.label, lang)}</p>
+        <h2 class="section-title"><Br text={t(service.title, lang)} /></h2>
+        <p class="section-body">{t(service.body, lang)}</p>
+      </div>
+      <div class="split-media">
+        {service.image ? (
+          <img
+            src={service.image}
+            alt={t(service.imageAlt, lang)}
+            loading="lazy"
+            style={service.focus ? `object-position: ${service.focus};` : undefined}
+          />
+        ) : (
+          <div class="photo-ph">
+            <div class="ph-icon">
+              <svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <span>{t(service.imageAlt, lang)}</span>
+          </div>
+        )}
+      </div>
+    </section>
+  </Fragment>
+))}
+<div class="divider-line"></div>

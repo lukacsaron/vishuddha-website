@@ -1,0 +1,59 @@
+---
+// The "work in progress" page shown at /hu/ while the Hungarian site is switched off.
+// Self-contained on purpose: it shares nothing with the main stylesheet.
+import '@fontsource-variable/montserrat';
+import type { Content } from '../cms/schema';
+
+interface Props { content: Content }
+const { content } = Astro.props;
+const { wip, contact, settings } = content;
+const tel = contact.phone.replace(/[^\d+]/g, '');
+---
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishuddha Productions | Hamarosan</title>
+  <meta name="description" content="A Vishuddha Productions magyar nyelvű oldala készül. Addig is elérhető az angol nyelvű oldal." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="alternate" hreflang="en" href={`${settings.siteUrl}/`} />
+  <link rel="alternate" hreflang="x-default" href={`${settings.siteUrl}/`} />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="preload" as="image" href="/media/logo.webp" fetchpriority="high" />
+</head>
+<body>
+  <img src="/media/logo.webp" alt="Vishuddha Productions" class="logo" width="831" height="439" fetchpriority="high" />
+  <h1 class="wip">{wip.title}</h1>
+  <div class="line"></div>
+  <p class="sub">{wip.sub}</p>
+  <a href="/" class="back">{wip.back}</a>
+  <p class="contact">
+    {contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}<br />
+    {contact.phone && <a href={`tel:${tel}`}>{contact.phone}</a>}
+  </p>
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --blue: #002fa7; --red: #dc443a; --white: #ffffff; --font: 'Montserrat Variable', 'Montserrat', sans-serif; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--font); background: var(--blue); color: var(--white);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 26px; padding: 40px 24px; text-align: center;
+  }
+  .logo { height: 110px; width: auto; display: block; opacity: 0; transform: translateY(14px); animation: fadeUp 0.8s 0.1s forwards; }
+  .wip { font-size: clamp(26px, 6vw, 48px); font-weight: 900; letter-spacing: 2px; text-transform: uppercase; line-height: 1.15; opacity: 0; animation: fadeUp 0.8s 0.35s forwards; }
+  .line { width: 0; height: 2px; background: var(--white); opacity: 0.5; border-radius: 2px; animation: grow 0.9s 0.6s forwards; }
+  .sub { font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.75); opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .back { display: inline-block; margin-top: 10px; background: var(--red); color: var(--white); text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 15px 34px; border-radius: 3px; opacity: 0; animation: fadeUp 0.8s 1s forwards; transition: background 0.2s, transform 0.15s; }
+  .back:hover { background: #c4372f; transform: translateY(-2px); }
+  .contact { margin-top: 18px; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: rgba(255,255,255,0.7); line-height: 2; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+  .contact a { color: var(--white); text-decoration: none; }
+  .contact a:hover { text-decoration: underline; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes grow { from { width: 0; } to { width: 90px; } }
+  @media (max-width: 600px) { .logo { height: 78px; } .sub { font-size: 11px; letter-spacing: 1.5px; } }
+</style>

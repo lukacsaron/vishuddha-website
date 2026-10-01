@@ -1,0 +1,5 @@
+---
+import Home from '../components/Home.astro';
+import { getContent } from '../cms/store';
+---
+<Home content={getContent()} lang="en" />

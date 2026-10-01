@@ -1,0 +1,49 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+
+interface Props { gallery: Content['gallery']; lang: Lang }
+const { gallery, lang } = Astro.props;
+// A video tile without an ID or an image tile without an image falls back to the placeholder look
+const kind = (tile: Content['gallery']['tiles'][number]) =>
+  tile.type === 'video' && tile.youtube ? 'video' : tile.type === 'image' && tile.image ? 'image' : 'placeholder';
+---
+{gallery.tiles.length > 0 && (
+  <div class="gallery-section">
+    <button class="gallery-toggle" id="galleryToggle" aria-expanded="false" aria-controls="galleryPanel">
+      <span>{t(gallery.toggle, lang)}</span>
+      <svg class="gallery-chevron" width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6 6-6"/></svg>
+    </button>
+
+    <div class="gallery-panel" id="galleryPanel">
+      <div class="gallery-grid">
+        {gallery.tiles.map((tile) => {
+          const k = kind(tile);
+          if (k === 'video') return (
+            <button class:list={['g-tile', tile.size, 'g-video']} data-yt={tile.youtube} aria-label={t(tile.label, lang) || 'Play video'}>
+              <img src={tile.image || `https://img.youtube.com/vi/${tile.youtube}/maxresdefault.jpg`} alt="" loading="lazy" />
+              <span class="g-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </button>
+          );
+          if (k === 'image') return (
+            <div class:list={['g-tile', tile.size]}>
+              <img src={tile.image} alt={t(tile.label, lang)} loading="lazy" />
+            </div>
+          );
+          return (
+            <div class:list={['g-tile', tile.size]}>
+              <div class="g-tile-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+              <span class="g-tile-label">{t(tile.label, lang)}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+)}
+
+<div class="yt-lightbox" id="ytLightbox" hidden>
+  <button class="yt-close" id="ytClose" aria-label="Close video">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <div class="yt-frame" id="ytFrame"></div>
+</div>

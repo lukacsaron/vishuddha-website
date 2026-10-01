@@ -1,0 +1,33 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+
+interface Props { team: Content['team']; lang: Lang }
+const { team, lang } = Astro.props;
+---
+<section id="team" data-nav="team" class="team-section">
+  <div class="reveal" style="text-align:center;">
+    <p class="section-label orange">{t(team.label, lang)}</p>
+    <h2 class="section-title">{t(team.title, lang)}</h2>
+  </div>
+  <div class="team-grid">
+    {team.members.map((member) => (
+      <div class="team-card reveal">
+        <div class="team-photo">
+          {member.photo && (
+            <img
+              src={member.photo}
+              alt={`${t(member.name, lang)} — ${t(member.role, lang)}`}
+              loading="lazy"
+              style={member.focus ? `object-position: ${member.focus};` : undefined}
+            />
+          )}
+        </div>
+        <div class="team-info">
+          <p class="team-role">{t(member.role, lang)}</p>
+          <h3 class="team-name">{t(member.name, lang)}</h3>
+          <p class="team-bio">{t(member.bio, lang)}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

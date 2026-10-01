@@ -1,0 +1,21 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+
+interface Props { work: Content['work']; lang: Lang }
+const { work, lang } = Astro.props;
+---
+<div id="work" data-nav="work" style="padding: 70px 60px 24px; text-align:center;" class="reveal">
+  <p class="section-label">{t(work.label, lang)}</p>
+  <h2 class="section-title" style="margin-bottom:0;">{t(work.title, lang)}</h2>
+</div>
+<div class="photo-grid-section reveal" style="margin-top:40px;">
+  {work.projects.map((project) => (
+    <div class:list={['photo-cell', !project.image && 'no-image']}>
+      {project.image && <img src={project.image} alt={project.client} loading="lazy" />}
+      <div class="photo-overlay">
+        <span class="overlay-client">{project.client}</span>
+        <span class="overlay-service">{t(project.service, lang)}</span>
+      </div>
+    </div>
+  ))}
+</div>

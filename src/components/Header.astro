@@ -1,0 +1,47 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+
+interface Props {
+  content: Content;
+  lang: Lang;
+  /** Path of the current page in each language, for the language switch */
+  paths: Record<Lang, string>;
+  /** Prefix for in-page links: '' on the home page, the home URL elsewhere */
+  home: string;
+}
+const { content, lang, paths, home } = Astro.props;
+const { nav, contact } = content;
+const tel = contact.phone.replace(/[^\d+]/g, '');
+---
+<header id="site-header">
+  <a href={lang === 'hu' ? '/hu/' : '/'} class="logo-wrap">
+    <img src="/media/logo.webp" alt="Vishuddha Productions" width="831" height="439" style="height:72px;width:auto;display:block;" />
+  </a>
+  <nav class="header-nav" id="headerNav">
+    <a href={`${home}#services`} class="nav-link" data-section="services">{t(nav.services, lang)}</a>
+    <a href={`${home}#work`} class="nav-link" data-section="work">{t(nav.work, lang)}</a>
+    <a href={`${home}#team`} class="nav-link" data-section="team">{t(nav.team, lang)}</a>
+  </nav>
+  <div class="header-right">
+    <nav class="header-contact">
+      {contact.phone && (
+        <a href={`tel:${tel}`}>
+          <img src="/media/icons/phone.webp" alt="" style="height:14px;width:auto;opacity:0.82;" />
+          {contact.phone}
+        </a>
+      )}
+      {contact.email && (
+        <a href={`mailto:${contact.email}`}>
+          <img src="/media/icons/mail.webp" alt="" style="height:12px;width:auto;opacity:0.82;" />
+          {contact.email}
+        </a>
+      )}
+    </nav>
+    <div class="lang-switch">
+      <a href={paths.en} class:list={{ active: lang === 'en' }} hreflang="en">EN</a>
+      <span class="sep">|</span>
+      <a href={paths.hu} class:list={{ active: lang === 'hu' }} hreflang="hu">HU</a>
+    </div>
+    <a href={`${home}#contact`} class="btn-cta">{t(nav.contact, lang)}</a>
+  </div>
+</header>

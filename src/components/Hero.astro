@@ -1,0 +1,33 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+import { dotted } from '../cms/text';
+import Br from './Br.astro';
+
+interface Props { hero: Content['hero']; lang: Lang }
+const { hero, lang } = Astro.props;
+const videoType = hero.video.toLowerCase().endsWith('.webm') ? 'video/webm' : 'video/mp4';
+---
+<section class="hero">
+  {hero.video && (
+    <video autoplay muted loop playsinline poster={hero.poster || undefined}>
+      <source src={hero.video} type={videoType} />
+    </video>
+  )}
+
+  <div class="hero-content">
+    <p class="hero-eyebrow"><Br text={t(hero.eyebrow, lang)} /></p>
+
+    <!-- H1 for SEO; styled identically via .hero-rolling-title -->
+    <h1 class="hero-rolling-title">
+      <span class="we-static">{t(hero.staticWord, lang)}</span>
+      <span class="rolling-slot" id="rollingSlot">
+        <div class="rolling-words" id="rollingWords">
+          {hero.words.map((word) => <span>{t(word, lang)}</span>)}
+        </div>
+      </span>
+    </h1>
+
+    <p class="hero-sub">{dotted(t(hero.sub, lang))}</p>
+    <a href="#contact" class="hero-cta">{t(hero.cta, lang)}</a>
+  </div>
+</section>

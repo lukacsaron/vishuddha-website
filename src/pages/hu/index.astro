@@ -1,0 +1,16 @@
+---
+import Home from '../../components/Home.astro';
+import Wip from '../../components/Wip.astro';
+import { getContent } from '../../cms/store';
+
+const content = getContent();
+// Until the Hungarian site is switched on, visitors get the placeholder;
+// a signed-in admin sees the real page so the translation can be reviewed.
+const live = content.settings.huEnabled;
+const preview = !live && Astro.locals.isAdmin;
+---
+{live || preview ? (
+  <Home {content} lang="hu" noindex={!live}>
+    {preview && <div class="preview-note">Preview: the Hungarian site is switched off. Visitors see the placeholder. <a href="/admin#settings">Settings</a></div>}
+  </Home>
+) : <Wip {content} />}

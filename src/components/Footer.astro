@@ -1,0 +1,66 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+import { year } from '../cms/text';
+
+interface Props { content: Content; lang: Lang; home: string }
+const { content, lang, home } = Astro.props;
+const { footer, contact, social, legal } = content;
+const tel = contact.phone.replace(/[^\d+]/g, '');
+const href = (h: string) => (h.startsWith('#') ? home + h : h);
+const prefix = lang === 'hu' ? '/hu' : '';
+---
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo-wrap">
+      <img src="/media/logo.webp" alt="Vishuddha Productions" width="831" height="439" loading="lazy" style="height:72px;width:auto;display:block;margin-bottom:20px;" />
+      <div class="footer-social" style="margin-top:20px;">
+        {social.instagram && (
+          <a href={social.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        )}
+        {social.facebook && (
+          <a href={social.facebook} target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        )}
+        {social.linkedin && (
+          <a href={social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div class="footer-col services-col">
+      <h4>{t(footer.servicesHeading, lang)}</h4>
+      <ul>
+        {footer.serviceLinks.map((link) => <li><a href={href(link.href)}>{t(link.label, lang)}</a></li>)}
+      </ul>
+    </div>
+
+    <div class="footer-col company-col">
+      <h4>{t(footer.companyHeading, lang)}</h4>
+      <ul>
+        {footer.companyLinks.map((link) => <li><a href={href(link.href)}>{t(link.label, lang)}</a></li>)}
+      </ul>
+      <h4 class="footer-subhead">{t(footer.legalHeading, lang)}</h4>
+      <ul>
+        <li><a href={`${prefix}/privacy`}>{t(legal.privacy.title, lang)}</a></li>
+        <li><a href={`${prefix}/terms`}>{t(legal.terms.title, lang)}</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col contact-col">
+      <h4>{t(footer.contactHeading, lang)}</h4>
+      <ul>
+        {contact.email && <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>}
+        {contact.phone && <li><a href={`tel:${tel}`}>{contact.phone}</a></li>}
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>{year(t(footer.copyright, lang))}</div>
+  </div>
+</footer>

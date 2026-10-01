@@ -1,0 +1,6 @@
+---
+// Renders a string with its newlines as <br>.
+interface Props { text: string }
+const parts = Astro.props.text.split('\n');
+---
+{parts.map((part, i) => <Fragment>{i > 0 && <br />}{part}</Fragment>)}
