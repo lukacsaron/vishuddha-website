@@ -25,6 +25,7 @@ Design: `docs/specs/2026-10-01-site-and-cms-design.md`.
 | 15 | Mobile hero video and poster, anchor offset under the fixed header | done |
 | 16 | Contact form replaced by contact details | done |
 | 17 | Technical SEO and UX audit, fixes applied (`docs/audit-2026-10-01.md`) | done |
+| 18 | Second audit pass: mobile menu, hidden empty slots, button contrast, vertical hero clip | done |
 
 ## Plan (build order)
 
@@ -138,6 +139,13 @@ Deliberate, all small:
 10. Unused CSS from the original (stats band, service cards) was kept, untouched.
 11. Menu links stop below the fixed header instead of sliding the section's first
     lines under it (the original had the same flaw).
+13. Below 1100px there is a menu button; the original simply dropped the links.
+14. Empty gallery slots, a service without a photo and legal pages without text no
+    longer show placeholders to visitors.
+15. Buttons use a slightly darker red than the brand red for contrast; text under
+    11px was raised to 11px; the preloader holds for 0.5s instead of 1.2s.
+16. The default page title and description were rewritten shorter (my wording,
+    built from the site's own phrases).
 12. The hero takes a separate vertical video and poster for phones held upright
     (portrait, up to 900px wide); without them the desktop ones are used. The
     poster is a CSS background on the video, since the `poster` attribute cannot

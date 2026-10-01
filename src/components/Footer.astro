@@ -8,6 +8,8 @@ const { footer, contact, social, legal } = content;
 const tel = contact.phone.replace(/[^\d+]/g, '');
 const href = (h: string) => (h.startsWith('#') ? home + h : h);
 const prefix = lang === 'hu' ? '/hu' : '';
+// A legal page appears in the footer once it has text (Hungarian falls back to English)
+const legalPages = (['privacy', 'terms'] as const).filter((page) => t(legal[page].body, lang).trim());
 ---
 <footer>
   <div class="footer-top">
@@ -44,11 +46,14 @@ const prefix = lang === 'hu' ? '/hu' : '';
       <ul>
         {footer.companyLinks.map((link) => <li><a href={href(link.href)}>{t(link.label, lang)}</a></li>)}
       </ul>
-      <h4 class="footer-subhead">{t(footer.legalHeading, lang)}</h4>
-      <ul>
-        <li><a href={`${prefix}/privacy`}>{t(legal.privacy.title, lang)}</a></li>
-        <li><a href={`${prefix}/terms`}>{t(legal.terms.title, lang)}</a></li>
-      </ul>
+      {legalPages.length > 0 && (
+        <Fragment>
+          <h4 class="footer-subhead">{t(footer.legalHeading, lang)}</h4>
+          <ul>
+            {legalPages.map((page) => <li><a href={`${prefix}/${page}`}>{t(legal[page].title, lang)}</a></li>)}
+          </ul>
+        </Fragment>
+      )}
     </div>
 
     <div class="footer-col contact-col">

@@ -19,16 +19,12 @@ export const seed: Content = {
   },
   seo: {
     title: l(
-      'Vishuddha Productions | Social Media Management & Video Production Budapest',
-      'Vishuddha Productions | Social Média Kezelés & Videógyártás Budapest',
+      'Vishuddha Productions | Film, Photo & Social Media, Budapest',
+      'Vishuddha Productions | Film, Fotó és Social Media, Budapest',
     ),
     description: l(
-      'Vishuddha Productions is a Budapest-based creative agency specialising in social media management, PPC advertising, film production and photography for Hungarian businesses.',
-      'A Vishuddha Productions egy budapesti mikro-ügynökség, amely közösségi média kezelésre, PPC hirdetéskezelésre, filmgyártásra és fotózásra specializálódott magyar vállalkozások számára.',
-    ),
-    keywords: l(
-      'social media management Budapest, PPC management Hungary, video production Budapest, film production Budapest, photography Budapest, digital marketing Hungary, Google Ads Hungary, Facebook Ads Budapest',
-      'social media kezelés Budapest, PPC hirdetéskezelés, Google Ads kezelés, Facebook hirdetések, videógyártás Budapest, filmgyártás Budapest, fotózás Budapest, digitális marketing Magyarország',
+      'Budapest-based micro-production company for film production, photography, social media management and PPC advertising. One team, every channel.',
+      'Budapesti mikro-ügynökség: filmgyártás, fotózás, közösségi média kezelés és PPC hirdetések. Egy csapat, minden platform.',
     ),
     ogImage: '/media/og-image.jpg',
   },
@@ -46,12 +42,14 @@ export const seed: Content = {
     work: l('Work', 'Munkáink'),
     team: l('Team', 'Csapat'),
     contact: l('Contact', 'Kapcsolat'),
+    menu: l('Menu', 'Menü'),
   },
   hero: {
     video: '/media/hero.mp4',
     poster: '/media/hero-poster.webp',
-    videoMobile: '',
-    posterMobile: '',
+    // Centre crop of the landscape clip: what phones showed anyway, at a quarter of the download
+    videoMobile: '/media/hero-mobile.mp4',
+    posterMobile: '/media/hero-mobile-poster.webp',
     eyebrow: l('Budapest-based\nmicro-production company', 'Budapesti\nmikro-ügynökség'),
     staticWord: l('We', 'Mi'),
     words: [

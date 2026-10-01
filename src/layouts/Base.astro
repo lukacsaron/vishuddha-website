@@ -55,7 +55,6 @@ const jsonLd = {
 
   <title>{title}</title>
   <meta name="description" content={description} />
-  {t(seo.keywords, lang) && <meta name="keywords" content={t(seo.keywords, lang)} />}
   {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={abs(paths[lang])} />
 

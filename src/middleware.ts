@@ -38,6 +38,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return context.redirect(canonical + pathname + context.url.search, 301);
   }
 
+  // One address per page: /hu and /hu/ would otherwise be two copies
+  if (pathname === '/hu' && (method === 'GET' || method === 'HEAD')) {
+    return context.redirect('/hu/' + context.url.search, 301);
+  }
+
   context.locals.isAdmin = verifySession(context.cookies.get(SESSION_COOKIE)?.value);
 
   // Cross-site requests must not be able to change anything

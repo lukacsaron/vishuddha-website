@@ -85,8 +85,8 @@ export const sections: Section[] = [
           { key: 'label', label: 'Small label', type: 'ltext' },
           { key: 'title', label: 'Headline', type: 'ltextarea', help: BREAK_HELP },
           { key: 'body', label: 'Text', type: 'ltextarea' },
-          { key: 'image', label: 'Photo', type: 'image' },
-          { key: 'imageAlt', label: 'Photo description', type: 'ltext', help: 'For screen readers; also shown in the empty box when there is no photo.' },
+          { key: 'image', label: 'Photo', type: 'image', help: 'Without a photo the section shows its text across the full width.' },
+          { key: 'imageAlt', label: 'Photo description', type: 'ltext', help: 'For screen readers and search engines.' },
           { key: 'focus', label: 'Photo focus point', type: 'text', help: FOCUS_HELP },
           { key: 'anchor', label: 'Link name', type: 'text', help: 'Used in links such as #film. Lowercase letters only. Footer links point at these.' },
         ],
@@ -116,7 +116,7 @@ export const sections: Section[] = [
     id: 'gallery',
     title: 'Gallery',
     group: 'Page',
-    intro: 'The mosaic behind the "Want to see more?" button. Removing every tile hides the button.',
+    intro: 'The mosaic behind the "Want to see more?" button. Empty slots are not shown to visitors: give one a photo or a video to make it appear. With nothing to show, the button is hidden.',
     fields: [
       { key: 'gallery.toggle', label: 'Button text', type: 'ltext' },
       {
@@ -125,11 +125,11 @@ export const sections: Section[] = [
         fields: [
           {
             key: 'type', label: 'Type', type: 'select',
-            options: [{ value: 'image', label: 'Photo' }, { value: 'video', label: 'YouTube video' }, { value: 'placeholder', label: 'Empty placeholder' }],
+            options: [{ value: 'image', label: 'Photo' }, { value: 'video', label: 'YouTube video' }, { value: 'placeholder', label: 'Empty slot (hidden on the site)' }],
           },
           { key: 'image', label: 'Photo', type: 'image', help: 'For a video tile this is optional: it replaces the YouTube thumbnail.' },
           { key: 'youtube', label: 'YouTube video ID', type: 'text', help: 'The part after "v=" in the address, e.g. lL5rxe1mWgQ.' },
-          { key: 'label', label: 'Caption', type: 'ltext', help: 'Shown on placeholders; used as the description of photos.' },
+          { key: 'label', label: 'Caption', type: 'ltext', help: 'Describes the photo for screen readers and search engines.' },
           {
             key: 'size', label: 'Tile size', type: 'select',
             options: [
@@ -183,6 +183,7 @@ export const sections: Section[] = [
       { key: 'nav.work', label: 'Menu: Work', type: 'ltext' },
       { key: 'nav.team', label: 'Menu: Team', type: 'ltext' },
       { key: 'nav.contact', label: 'Menu: Contact button', type: 'ltext' },
+      { key: 'nav.menu', label: 'Menu: name of the menu button on phones', type: 'ltext', help: 'Read out by screen readers; not shown.' },
       { key: 'footer.servicesHeading', label: 'Footer: services heading', type: 'ltext' },
       {
         key: 'footer.serviceLinks', label: 'Footer: service links', type: 'list', item: 'link', titleKey: 'label',
@@ -210,7 +211,7 @@ export const sections: Section[] = [
     id: 'legal',
     title: 'Legal pages',
     group: 'Page',
-    intro: 'The Privacy Policy and Terms pages linked from the footer. Until a page has text, it says it is being prepared and is hidden from search engines.',
+    intro: 'The Privacy Policy and Terms pages linked from the footer. A page without text is left out of the footer and hidden from search engines.',
     fields: [
       { key: 'legal.privacy.title', label: 'Privacy Policy: title', type: 'ltext' },
       { key: 'legal.privacy.body', label: 'Privacy Policy: text', type: 'ltextarea', help: 'Markdown: "## Heading", "- list item", "**bold**", "[link](https://…)".' },
@@ -240,7 +241,6 @@ export const sections: Section[] = [
     fields: [
       { key: 'seo.title', label: 'Page title', type: 'ltext', help: 'About 60 characters.' },
       { key: 'seo.description', label: 'Description', type: 'ltextarea', help: 'About 155 characters.' },
-      { key: 'seo.keywords', label: 'Keywords', type: 'ltextarea' },
       { key: 'seo.ogImage', label: 'Sharing image', type: 'image', help: 'Shown when the site is shared. 1200 × 630 works best.' },
     ],
   },

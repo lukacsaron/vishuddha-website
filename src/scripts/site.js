@@ -114,9 +114,10 @@ document.querySelectorAll('.service-card').forEach((card, i) => {
   // Hold the screen until the logo and the fonts are both in, then give the logo
   // its moment. The cap keeps a slow or failed image from trapping visitors here.
   const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-  const cap = new Promise(res => setTimeout(res, 4000));
+  const cap = new Promise(res => setTimeout(res, 2500));
   Promise.race([Promise.all([logoReady, fontsReady]), cap])
-    .then(() => setTimeout(hide, 1200));
+    // Long enough to register the logo, short enough not to hold the page back
+    .then(() => setTimeout(hide, 500));
 })();
 
 // ── SCROLL PROGRESS ──
@@ -288,4 +289,29 @@ document.querySelectorAll('.service-card').forEach((card, i) => {
   video.removeAttribute('autoplay');
   video.pause();
   video.controls = true;
+})();
+
+// ── MOBILE MENU ──
+(function() {
+  const btn  = document.getElementById('menuToggle');
+  const menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
+
+  function set(open) {
+    btn.setAttribute('aria-expanded', open);
+    btn.classList.toggle('open', open);
+    menu.hidden = !open;
+  }
+
+  btn.addEventListener('click', () => set(menu.hidden));
+  // A link in the menu scrolls the page, so get out of the way
+  menu.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !menu.hidden) { set(false); btn.focus(); }
+  });
+  document.addEventListener('click', e => {
+    if (!menu.hidden && !e.target.closest('#site-header')) set(false);
+  });
+  // Back on a wide screen the regular menu takes over
+  window.matchMedia('(min-width: 1101px)').addEventListener('change', e => { if (e.matches) set(false); });
 })();

@@ -21,7 +21,6 @@ export const contentSchema = z.object({
   seo: z.object({
     title: L,
     description: L,
-    keywords: L,
     ogImage: media,
   }),
   contact: z.object({
@@ -33,7 +32,7 @@ export const contentSchema = z.object({
     facebook: url,
     linkedin: url,
   }),
-  nav: z.object({ services: L, work: L, team: L, contact: L }),
+  nav: z.object({ services: L, work: L, team: L, contact: L, menu: L }),
   hero: z.object({
     video: media,
     poster: media,
