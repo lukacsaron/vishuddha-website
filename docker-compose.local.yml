@@ -1,0 +1,9 @@
+# Local override: publishes the port, which the Coolify file deliberately does not.
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
+services:
+  web:
+    ports:
+      - "127.0.0.1:4321:4321"
+    environment:
+      # No proxy in front locally, so forwarded headers must not be trusted
+      - TRUST_PROXY=0

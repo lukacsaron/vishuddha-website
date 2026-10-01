@@ -3,8 +3,10 @@ import { addEnquiry, contactLimiter, enquirySchema } from '../../cms/enquiries';
 import { notify } from '../../cms/mail';
 import { getContent } from '../../cms/store';
 import { json } from '../../cms/http';
+import { clientIp } from '../../cms/visitor-ip';
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
+  const ip = clientIp(request, clientAddress);
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -15,14 +17,14 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   // Bots fill every field; people never see this one. Answer as if it worked.
   if (typeof body.website === 'string' && body.website.trim()) return json({ ok: true });
 
-  if (!contactLimiter.allowed(clientAddress)) return json({ error: 'Too many requests' }, 429);
+  if (!contactLimiter.allowed(ip)) return json({ error: 'Too many requests' }, 429);
 
   const parsed = enquirySchema.safeParse(body);
   if (!parsed.success) {
     return json({ error: 'Invalid fields', fields: parsed.error.issues.map((i) => i.path.join('.')) }, 400);
   }
 
-  contactLimiter.hit(clientAddress);
+  contactLimiter.hit(ip);
   const enquiry = addEnquiry(parsed.data);
 
   const content = getContent();

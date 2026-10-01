@@ -1,0 +1,50 @@
+# Vishuddha website: local Docker runs and Coolify deployment (Docker Compose build pack).
+#
+# Compose rather than a bare Dockerfile so that the data volume is declared here, in
+# the repository, and cannot be forgotten in the Coolify UI.
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # No container_name: Coolify manages naming.
+    # No host port: Coolify's proxy (Traefik) routes the domain to this internal port.
+    expose:
+      - "4321"
+    volumes:
+      # DO NOT rename the volume or change the mount path. Coolify keys the stored
+      # volume on service + volume name + mount path; changing either one mounts a
+      # new, empty volume and the site falls back to its built-in starting content.
+      - site-data:/data
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=4321
+      - DATA_DIR=/data
+      # Traefik sits in front: trust its forwarded headers for the visitor address
+      - TRUST_PROXY=1
+      # Set these in Coolify → Environment Variables
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?Set ADMIN_PASSWORD}
+      - SESSION_SECRET=${SESSION_SECRET:-}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - SMTP_FROM=${SMTP_FROM:-}
+      - NOTIFY_TO=${NOTIFY_TO:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4321/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  site-data:

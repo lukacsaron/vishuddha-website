@@ -363,7 +363,12 @@ async function viewHistory() {
         },
       }, 'Restore'),
     ))),
-    h('p', { class: 'intro' }, h('a', { href: '/api/admin/export', class: 'btn' }, 'Download a backup of the current content')),
+    h('h2', {}, 'Backup'),
+    h('p', { class: 'intro' }, 'The full backup holds everything edited or uploaded here: texts, history, enquiries, photos and videos. Keep a copy somewhere safe from time to time.'),
+    h('p', { class: 'backup-actions' },
+      h('a', { href: '/api/admin/backup', class: 'btn primary' }, 'Download full backup'),
+      h('a', { href: '/api/admin/export', class: 'btn' }, 'Texts only (JSON)'),
+    ),
   );
 }
 

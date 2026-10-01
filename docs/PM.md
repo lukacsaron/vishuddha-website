@@ -19,6 +19,8 @@ Design: `docs/specs/2026-10-01-site-and-cms-design.md`.
 | 9 | SEO: meta, JSON-LD, sitemap, robots, redirects | done |
 | 10 | Tests, build, smoke test, browser comparison with legacy | done |
 | 11 | Dockerfile, README, final review | done |
+| 12 | Coming soon page with admin switch | done |
+| 13 | Coolify deployment: compose, named volume, health check, backup, runbook | done |
 
 ## Plan (build order)
 
@@ -70,10 +72,15 @@ Problems found in the first draft of the plan and what changed:
 3. One shared admin password instead of user accounts.
 4. Saves go live immediately; rollback via History instead of drafts.
 5. Admin UI is in English.
+6. The coming soon page answers with HTTP 503 rather than 200, so search engines
+   treat it as temporary and do not index the notice in place of the site.
+7. Coolify deployment uses the Docker Compose build pack with the volume declared
+   in the repo, following the pattern of our other stateful services. See ADR 0002.
+8. The container starts as root only to fix volume ownership, then drops to `node`.
 
 ## Verification (2026-10-01)
 
-- `npm test`: 58 tests pass. `npm run check`: 0 errors. `npm run build`: clean.
+- `npm test`: 63 tests pass. `npm run check`: 0 errors. `npm run build`: clean.
 - Layout compared against `legacy/index.html` in Chrome at 1440, 1000 and 390 px:
   position, size, font and colour of ~300 elements across 46 selectors. Identical
   at 1440 and 1000; at 390 three elements differ by 1 px of rounding. Page heights equal.
@@ -87,10 +94,16 @@ Problems found in the first draft of the plan and what changed:
   login rate limit, image and video upload, 80 MB upload, HTTP range requests,
   non-media upload refused, security headers.
 - `npm run dev` checked: pages, sign-in, admin script and content API all respond.
-- Docker image built and run: pages, sign-in, image upload (sharp on Linux) and the
-  contact form work; enquiries and uploads survive a container restart on the
-  `/data` volume; the process runs as the unprivileged `node` user. Image is 666 MB.
-- **Not verified:** SMTP delivery (no mail server configured); Safari and real phones.
+- Docker Compose stack built and run (image 553 MB): healthy; runs as `node`;
+  content, uploads and enquiries survive `compose down` + rebuild + `up` and a
+  container recreate; a pre-existing root-owned volume is repaired on start.
+- Coming soon switch, in the container: visitors get the notice with HTTP 503 and
+  `Retry-After` on every public page in the right language; the admin, APIs,
+  media and `/api/health` stay reachable; a signed-in admin sees the real site
+  with a preview note.
+- Rate limiting keys on the proxy-reported address (sixth enquiry from one address
+  is refused, another address is not). Full backup downloads and lists correctly.
+- **Not verified:** an actual deploy on the Coolify box; SMTP delivery (no mail server configured); Safari and real phones.
 
 ## Deviations from `legacy/index.html`
 
@@ -125,7 +138,8 @@ Deliberate, all small:
 4. **Facebook / LinkedIn links**, if they exist.
 5. **Gallery**: 24 of 29 tiles are still empty placeholders, as in the original.
    Fill or delete them.
-6. **Hosting**: needs a Node/container host with a persistent volume; choose one,
-   set `ADMIN_PASSWORD`, and optionally SMTP for enquiry emails.
+6. **Hosting**: deploy to Coolify following `docs/deploy-coolify.md`. Nothing backs
+   the data volume up automatically, so download a full backup from the admin
+   regularly.
 7. The seed still contains "Budapest-based creative agency" in the SEO description
    and "micro-production company" on the page, as the original did.

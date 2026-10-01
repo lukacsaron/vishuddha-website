@@ -72,9 +72,16 @@ describe('rate limiter', () => {
 describe('sameOrigin', () => {
   const req = (headers: Record<string, string>) => new Request('http://internal/api/x', { method: 'POST', headers });
 
-  it('accepts a matching host, including behind a proxy', () => {
+  it('accepts a matching host', () => {
     expect(sameOrigin(req({ origin: 'https://site.hu', host: 'site.hu' }))).toBe(true);
-    expect(sameOrigin(req({ origin: 'https://site.hu', host: '10.0.0.5:4321', 'x-forwarded-host': 'site.hu' }))).toBe(true);
+  });
+
+  it('uses the forwarded host only when the proxy is trusted', () => {
+    const proxied = req({ origin: 'https://site.hu', host: '10.0.0.5:4321', 'x-forwarded-host': 'site.hu' });
+    expect(sameOrigin(proxied)).toBe(false);
+    process.env.TRUST_PROXY = '1';
+    expect(sameOrigin(proxied)).toBe(true);
+    delete process.env.TRUST_PROXY;
   });
 
   it('refuses another site, a missing origin and a malformed one', () => {

@@ -1,6 +1,6 @@
 ---
 import Home from '../../components/Home.astro';
-import Wip from '../../components/Wip.astro';
+import Splash from '../../components/Splash.astro';
 import { getContent } from '../../cms/store';
 
 const content = getContent();
@@ -11,6 +11,16 @@ const preview = !live && Astro.locals.isAdmin;
 ---
 {live || preview ? (
   <Home {content} lang="hu" noindex={!live}>
-    {preview && <div class="preview-note">Preview: the Hungarian site is switched off. Visitors see the placeholder. <a href="/admin#settings">Settings</a></div>}
+    {preview && <div class="preview-note" style={Astro.locals.comingSoonPreview ? 'bottom:34px;' : undefined}>Preview: the Hungarian site is switched off. Visitors see the placeholder. <a href="/admin#settings">Settings</a></div>}
   </Home>
-) : <Wip {content} />}
+) : (
+  <Splash
+    {content}
+    lang="hu"
+    pageTitle="Vishuddha Productions | Hamarosan"
+    description="A Vishuddha Productions magyar nyelvű oldala készül. Addig is elérhető az angol nyelvű oldal."
+    title={content.wip.title}
+    text={content.wip.sub}
+    button={{ href: '/', label: content.wip.back }}
+  />
+)}

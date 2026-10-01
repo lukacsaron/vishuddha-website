@@ -3,7 +3,15 @@ dist
 .astro
 data
 legacy
-.git
-.env
 docs
 tests
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+Dockerfile*
+docker-compose*
+coolify.env.example
+*.md
+.DS_Store

@@ -123,6 +123,7 @@ export const contentSchema = z.object({
     empty: L,
   }),
   wip: z.object({ title: z.string(), sub: z.string(), back: z.string() }),
+  comingSoon: z.object({ enabled: z.boolean(), title: L, text: L, cta: L }),
 });
 
 export type Content = z.infer<typeof contentSchema>;

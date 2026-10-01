@@ -70,6 +70,6 @@ export const loginLimiter = new RateLimiter(5, 15 * 60 * 1000);
 export function sameOrigin(request: Request): boolean {
   const origin = request.headers.get('origin');
   if (!origin) return false;
-  const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
+  const host = (env.trustProxy && request.headers.get('x-forwarded-host')) || request.headers.get('host');
   try { return new URL(origin).host === host; } catch { return false; }
 }

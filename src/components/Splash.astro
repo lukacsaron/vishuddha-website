@@ -1,21 +1,31 @@
 ---
-// The "work in progress" page shown at /hu/ while the Hungarian site is switched off.
+// A full-screen notice on brand blue: logo, headline, a line of text, contact details.
+// Used for the Hungarian "work in progress" page and the site-wide "coming soon" page.
 // Self-contained on purpose: it shares nothing with the main stylesheet.
 import '@fontsource-variable/montserrat';
-import type { Content } from '../cms/schema';
+import type { Content, Lang } from '../cms/schema';
 
-interface Props { content: Content }
-const { content } = Astro.props;
-const { wip, contact, settings } = content;
+interface Props {
+  content: Content;
+  lang: Lang;
+  pageTitle: string;
+  description: string;
+  title: string;
+  text: string;
+  /** Optional button under the text */
+  button?: { href: string; label: string };
+}
+const { content, lang, pageTitle, description, title, text, button } = Astro.props;
+const { contact, settings } = content;
 const tel = contact.phone.replace(/[^\d+]/g, '');
 ---
 <!DOCTYPE html>
-<html lang="hu">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vishuddha Productions | Hamarosan</title>
-  <meta name="description" content="A Vishuddha Productions magyar nyelvű oldala készül. Addig is elérhető az angol nyelvű oldal." />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
   <meta name="robots" content="noindex, follow" />
   <link rel="alternate" hreflang="en" href={`${settings.siteUrl}/`} />
   <link rel="alternate" hreflang="x-default" href={`${settings.siteUrl}/`} />
@@ -24,10 +34,10 @@ const tel = contact.phone.replace(/[^\d+]/g, '');
 </head>
 <body>
   <img src="/media/logo.webp" alt="Vishuddha Productions" class="logo" width="831" height="439" fetchpriority="high" />
-  <h1 class="wip">{wip.title}</h1>
+  <h1 class="wip">{title}</h1>
   <div class="line"></div>
-  <p class="sub">{wip.sub}</p>
-  <a href="/" class="back">{wip.back}</a>
+  <p class="sub">{text}</p>
+  {button && <a href={button.href} class="back">{button.label}</a>}
   <p class="contact">
     {contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}<br />
     {contact.phone && <a href={`tel:${tel}`}>{contact.phone}</a>}

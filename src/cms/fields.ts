@@ -269,6 +269,18 @@ export const sections: Section[] = [
     ],
   },
   {
+    id: 'coming-soon',
+    title: 'Coming soon page',
+    group: 'Site',
+    intro: 'Hides the whole site behind a single "coming soon" page, for example before launch or during a bigger rework. While you are signed in here you still see the real site, so you can keep working on it.',
+    fields: [
+      { key: 'comingSoon.enabled', label: 'Show the coming soon page to visitors', type: 'bool', help: 'Takes effect as soon as you save. Search engines are told the site is temporarily unavailable, so it does not replace your pages in Google.' },
+      { key: 'comingSoon.title', label: 'Headline', type: 'ltext' },
+      { key: 'comingSoon.text', label: 'Line below', type: 'ltext' },
+      { key: 'comingSoon.cta', label: 'Button text', type: 'ltext', help: 'The button opens an email to the address in Contact details, which is also shown under it with the phone number. Leave empty to hide the button.' },
+    ],
+  },
+  {
     id: 'settings',
     title: 'Settings',
     group: 'Site',

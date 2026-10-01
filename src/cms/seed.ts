@@ -297,4 +297,10 @@ export const seed: Content = {
     sub: 'A magyar nyelvű oldal készül',
     back: 'English site',
   },
+  comingSoon: {
+    enabled: false,
+    title: l('Coming soon', 'Hamarosan'),
+    text: l('Our new website is on its way', 'Új weboldalunk hamarosan érkezik'),
+    cta: l('Get in touch', 'Kapcsolatfelvétel'),
+  },
 };

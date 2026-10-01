@@ -2,6 +2,7 @@
 import '@fontsource-variable/montserrat';
 import '../../admin/admin.css';
 import { SESSION_COOKIE, SESSION_TTL_S, checkPassword, createSession, loginLimiter } from '../../cms/auth';
+import { clientIp } from '../../cms/visitor-ip';
 import { env } from '../../cms/env';
 
 if (Astro.locals.isAdmin) return Astro.redirect('/admin');
@@ -10,7 +11,7 @@ let error = '';
 if (!env.adminPassword) {
   error = 'No admin password is configured. Set ADMIN_PASSWORD in the environment and restart.';
 } else if (Astro.request.method === 'POST') {
-  const ip = Astro.clientAddress;
+  const ip = clientIp(Astro.request, Astro.clientAddress);
   if (!loginLimiter.allowed(ip)) {
     error = 'Too many attempts. Try again in 15 minutes.';
   } else {

@@ -1,8 +1,12 @@
 import { defineMiddleware } from 'astro:middleware';
 import { SESSION_COOKIE, sameOrigin, verifySession } from './cms/auth';
+import { getContent } from './cms/store';
 
 const json = (status: number, error: string) =>
   new Response(JSON.stringify({ error }), { status, headers: { 'Content-Type': 'application/json' } });
+
+// Assets and files that must keep working while the coming soon page is on
+const EXEMPT_FROM_COMING_SOON = /^\/(uploads|media|_astro|_image)\/|^\/(robots\.txt|favicon\.png)$/;
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
@@ -21,7 +25,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return pathname.startsWith('/api/') ? json(401, 'Not signed in') : context.redirect('/admin/login');
   }
 
-  const response = await next();
+  // Coming soon: every public page is replaced by one notice. Admins keep seeing the
+  // real site; the admin, the APIs and media stay reachable.
+  const isPublicPage = !isAdminArea && !isApi && !EXEMPT_FROM_COMING_SOON.test(pathname);
+  const comingSoon = isPublicPage && getContent().comingSoon.enabled;
+  context.locals.comingSoonPreview = comingSoon && context.locals.isAdmin;
+
+  const response = comingSoon && !context.locals.isAdmin && pathname !== '/coming-soon'
+    ? await context.rewrite(`/coming-soon${pathname.startsWith('/hu') ? '?lang=hu' : ''}`)
+    : await next();
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'SAMEORIGIN');
   // The YouTube player in the lightbox refuses to start without a referrer

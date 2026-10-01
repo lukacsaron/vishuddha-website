@@ -1,0 +1,30 @@
+---
+// The site-wide "coming soon" page. Visitors never request this address themselves:
+// src/middleware.ts serves it in place of every public page while the switch is on.
+import Splash from '../components/Splash.astro';
+import { t, type Lang } from '../cms/schema';
+import { getContent } from '../cms/store';
+
+const content = getContent();
+if (!content.comingSoon.enabled) return Astro.redirect('/');
+
+// Middleware passes the original path along, so /hu/... gets the Hungarian text
+const lang: Lang = Astro.url.searchParams.get('lang') === 'hu' ? 'hu' : 'en';
+
+// 503 + Retry-After tells search engines this is temporary, so the placeholder
+// is not indexed in place of the real pages.
+const cta = t(content.comingSoon.cta, lang);
+
+Astro.response.status = 503;
+Astro.response.headers.set('Retry-After', '86400');
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+<Splash
+  {content}
+  {lang}
+  pageTitle={`Vishuddha Productions | ${t(content.comingSoon.title, lang)}`}
+  description={t(content.comingSoon.text, lang)}
+  title={t(content.comingSoon.title, lang)}
+  text={t(content.comingSoon.text, lang)}
+  button={cta && content.contact.email ? { href: `mailto:${content.contact.email}`, label: cta } : undefined}
+/>

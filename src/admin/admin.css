@@ -158,6 +158,9 @@ body.admin { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh;
 .history { margin-bottom: 22px; }
 .history-row { display: flex; justify-content: space-between; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 8px 8px 8px 14px; margin-bottom: 6px; }
 
+#main h2 { font-size: 17px; font-weight: 800; margin: 28px 0 6px; }
+.backup-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
 /* ── Toasts ── */
 #toasts { position: fixed; bottom: 20px; right: 20px; z-index: 50; display: flex; flex-direction: column; gap: 8px; }
 .toast { background: var(--ink); color: #fff; padding: 11px 16px; border-radius: 6px; font-weight: 600; font-size: 13px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); max-width: 360px; }

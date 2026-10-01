@@ -13,6 +13,8 @@ export const env = {
   get dataDir() { return path.resolve(process.env.DATA_DIR || 'data'); },
   get adminPassword() { return process.env.ADMIN_PASSWORD || ''; },
   get sessionSecret() { return process.env.SESSION_SECRET || ''; },
+  /** Set when a reverse proxy (Traefik on Coolify) sits in front and its forwarded headers can be trusted */
+  get trustProxy() { return process.env.TRUST_PROXY === '1'; },
   get isProd() { return process.env.NODE_ENV === 'production'; },
   get smtp() {
     const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, NOTIFY_TO } = process.env;

@@ -38,6 +38,8 @@ press **Save changes** (or Ctrl/Cmd+S). The site updates immediately.
 - Images are resized and converted to WebP on upload. Video must be MP4 or WebM.
 - **History** keeps the last 30 versions and can restore any of them.
 - **Enquiries** lists what visitors sent through the contact form.
+- **Coming soon page** hides the whole site behind one notice until you switch it
+  off. Signed in, you still see the real site.
 - The Hungarian site is switched on under **Settings**. While it is off, `/hu/`
   shows the "work in progress" page to visitors; signed in, you see a preview.
 
@@ -51,25 +53,26 @@ Set through environment variables (see `.env.example`):
 | `SESSION_SECRET` | Optional signing key for sessions. Defaults to one derived from the password. |
 | `DATA_DIR` | Where content, uploads, history and enquiries are stored. Default `./data`. |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `NOTIFY_TO` | Optional. Emails each enquiry. Without `SMTP_HOST`, enquiries are only stored. |
+| `TRUST_PROXY` | `1` behind a reverse proxy (the Docker setup sets it), so rate limits see the visitor's address. |
 | `HOST`, `PORT` | Where the server listens. |
 
 ## Deploying
 
-The site needs a Node process and a disk that survives restarts, so it cannot go on
-static hosting. Any container host works (Coolify, Fly, Railway, a VPS).
+The site needs a Node process and a disk that survives deploys, so it cannot go on
+static hosting. It is set up for Coolify with the Docker Compose build pack; the
+data volume is declared in `docker-compose.yml`.
+
+- Step by step, backups, restore, troubleshooting: `docs/deploy-coolify.md`
+- Why compose and a named volume: `docs/decisions/0002-coolify-deployment.md`
+
+To run the production container locally:
 
 ```sh
-docker build -t vishuddha .
-docker run -d -p 4321:4321 -v vishuddha-data:/data -e ADMIN_PASSWORD=... vishuddha
+ADMIN_PASSWORD=something docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 ```
 
-Put it behind a reverse proxy that terminates HTTPS and forwards the `Host` (or
-`X-Forwarded-Host`) and `X-Forwarded-Proto` headers. The admin's cross-site check
-compares the request's `Origin` with that host, so a proxy that rewrites `Host`
-without setting `X-Forwarded-Host` will make saving fail with "Cross-site request refused".
-
-**Back up `DATA_DIR`.** It holds everything edited or uploaded since launch. The
-admin's History page also offers a download of the current content.
+**Back up the data.** The admin's History page downloads everything (texts, uploads,
+history, enquiries) as one `.tar.gz`.
 
 ## Where things are
 
