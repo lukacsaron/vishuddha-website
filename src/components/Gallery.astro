@@ -41,7 +41,7 @@ const kind = (tile: Content['gallery']['tiles'][number]) =>
   </div>
 )}
 
-<div class="yt-lightbox" id="ytLightbox" hidden>
+<div class="yt-lightbox" id="ytLightbox" role="dialog" aria-modal="true" aria-label="Video" hidden>
   <button class="yt-close" id="ytClose" aria-label="Close video">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>

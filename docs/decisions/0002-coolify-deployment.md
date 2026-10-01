@@ -4,7 +4,7 @@ Date: 2026-10-01. Status: accepted.
 
 ## The problem
 
-The site keeps everything the owners edit (texts, uploads, history, enquiries) as
+The site keeps everything the owners edit (texts, uploads, history) as
 files in one directory. A container's own filesystem is thrown away on every deploy,
 so that directory has to live on a Docker volume, and the volume has to keep being
 the same one across deploys, rebuilds and restarts. Losing it does not break the
@@ -76,7 +76,7 @@ Guards around it:
 
 ## Verified locally (Docker 28, arm64)
 
-Build; container healthy; process runs as `node`; save, upload and enquiry written
+Build; container healthy; process runs as `node`; save and upload written
 to the volume; `compose down` + rebuild + `up` keeps all of it; a container
 recreate keeps it; a pre-existing root-owned volume is fixed on start.
 

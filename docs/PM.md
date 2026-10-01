@@ -22,6 +22,9 @@ Design: `docs/specs/2026-10-01-site-and-cms-design.md`.
 | 12 | Coming soon page with admin switch | done |
 | 13 | Coolify deployment: compose, named volume, health check, backup, runbook | done |
 | 14 | Deployed to production, persistence confirmed across a redeploy | done |
+| 15 | Mobile hero video and poster, anchor offset under the fixed header | done |
+| 16 | Contact form replaced by contact details | done |
+| 17 | Technical SEO and UX audit, fixes applied (`docs/audit-2026-10-01.md`) | done |
 
 ## Plan (build order)
 
@@ -81,7 +84,7 @@ Problems found in the first draft of the plan and what changed:
 
 ## Verification (2026-10-01)
 
-- `npm test`: 63 tests pass. `npm run check`: 0 errors. `npm run build`: clean.
+- `npm test`: 44 tests pass (the form's tests left with the form). `npm run check`: 0 errors. `npm run build`: clean.
 - Layout compared against `legacy/index.html` in Chrome at 1440, 1000 and 390 px:
   position, size, font and colour of ~300 elements across 46 selectors. Identical
   at 1440 and 1000; at 390 three elements differ by 1 px of rounding. Page heights equal.
@@ -109,7 +112,7 @@ Problems found in the first draft of the plan and what changed:
   `/data`, Let's Encrypt certificate, http → https, `www` → apex. Signed in, saved a
   change, forced a rebuild and redeploy: the change was still there. A cross-site
   save was refused (403) through the real proxy.
-- **Not verified:** SMTP delivery (no mail server configured); Safari and real phones.
+- **Not verified:** Safari and real phones (checks ran in Chrome at phone sizes).
 
 ## Deviations from `legacy/index.html`
 
@@ -121,7 +124,10 @@ Deliberate, all small:
    image (`services/photography.png` was never in the folder).
 3. Privacy and Terms links go to real pages (`/privacy`, `/terms`) that say they
    are being prepared, instead of dead `#privacy` / `#terms` anchors.
-4. The contact form really sends, and shows an error if sending fails.
+4. The contact form is gone. The contact section keeps its heading and text and
+   shows the email address and phone number as large links. With it went the
+   enquiry inbox, the contact endpoint and SMTP (milestones 7 and 8 above describe
+   what was first built).
 5. Montserrat is self-hosted instead of loaded from Google Fonts (GDPR, speed).
 6. Images are WebP at display size: seed media went from ~41 MB to 6.2 MB, of
    which the hero video is 4.4 MB. The hero has a poster frame while the video loads.
@@ -130,6 +136,12 @@ Deliberate, all small:
 8. The `hreflang="hu"` tag is only emitted while the Hungarian site is live.
 9. Copyright year is automatic. A `<noscript>` rule keeps the page visible without JS.
 10. Unused CSS from the original (stats band, service cards) was kept, untouched.
+11. Menu links stop below the fixed header instead of sliding the section's first
+    lines under it (the original had the same flaw).
+12. The hero takes a separate vertical video and poster for phones held upright
+    (portrait, up to 900px wide); without them the desktop ones are used. The
+    poster is a CSS background on the video, since the `poster` attribute cannot
+    vary by screen.
 
 ## Open items for the owners
 
@@ -148,7 +160,6 @@ Deliberate, all small:
    backup from the admin (History) regularly.
 7. **Admin password**: generated at deploy time; it is the `ADMIN_PASSWORD`
    environment variable of the application in Coolify. Change it there and redeploy.
-8. **Email notifications** for enquiries need the SMTP variables set in Coolify.
 9. **Deploys are manual**: push to `main`, then Redeploy in Coolify.
 10. The seed still contains "Budapest-based creative agency" in the SEO description
    and "micro-production company" on the page, as the original did.

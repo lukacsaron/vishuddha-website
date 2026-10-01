@@ -76,157 +76,6 @@ document.querySelectorAll('.service-card').forEach((card, i) => {
   }, { passive: true });
 })();
 
-// Custom select dropdown
-document.querySelectorAll('.form-group select').forEach(native => {
-  const wrap = document.createElement('div');
-  wrap.className = 'csel-wrap';
-
-  const trigger = document.createElement('div');
-  trigger.className = 'csel-trigger';
-  trigger.innerHTML = `<span class="csel-label">${native.options[0].text}</span><svg class="csel-arrow" width="12" height="7" viewBox="0 0 12 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg>`;
-
-  const dropdown = document.createElement('div');
-  dropdown.className = 'csel-dropdown';
-
-  Array.from(native.options).slice(1).forEach(opt => {
-    const item = document.createElement('div');
-    item.className = 'csel-option';
-    item.dataset.value = opt.value;
-    item.textContent = opt.text;
-    item.addEventListener('click', () => {
-      native.value = opt.value;
-      trigger.querySelector('.csel-label').textContent = opt.text;
-      trigger.classList.add('filled');
-      trigger.classList.remove('open', 'error');
-      dropdown.classList.remove('open');
-      dropdown.querySelectorAll('.csel-option').forEach(o => o.classList.remove('selected'));
-      item.classList.add('selected');
-      native.dispatchEvent(new Event('change'));
-    });
-    dropdown.appendChild(item);
-  });
-
-  trigger.addEventListener('click', e => {
-    e.stopPropagation();
-    const isOpen = dropdown.classList.contains('open');
-    // close all other open dropdowns
-    document.querySelectorAll('.csel-dropdown.open').forEach(d => {
-      d.classList.remove('open');
-      d.previousElementSibling.classList.remove('open');
-    });
-    if (!isOpen) {
-      dropdown.classList.add('open');
-      trigger.classList.add('open');
-    }
-  });
-
-  // Store reference so validation can flag it
-  native._cselTrigger = trigger;
-
-  wrap.appendChild(trigger);
-  wrap.appendChild(dropdown);
-  native.parentNode.insertBefore(wrap, native);
-});
-
-document.addEventListener('click', () => {
-  document.querySelectorAll('.csel-dropdown.open').forEach(d => {
-    d.classList.remove('open');
-    d.previousElementSibling.classList.remove('open');
-  });
-});
-
-// Form validation + submit
-const consultForm = document.getElementById('consultForm');
-if (consultForm) consultForm.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const form    = this;
-  const msgs    = form.dataset; // translated messages come from the server-rendered form
-  const errBox  = document.getElementById('formError');
-  const wrap    = document.getElementById('formWrap');
-  const success = document.getElementById('formSuccess');
-
-  const required = form.querySelectorAll('input[required], select[required]');
-  let errors = [];
-
-  required.forEach(el => {
-    const invalid = el.type === 'checkbox' ? !el.checked : !el.value.trim();
-    if (el.tagName === 'SELECT' && el._cselTrigger) {
-      el._cselTrigger.classList.toggle('error', invalid);
-    } else {
-      el.style.borderColor = invalid ? 'var(--red)' : '';
-    }
-    if (invalid) errors.push(el);
-  });
-
-  // Email format
-  const emailEl = form.querySelector('#email');
-  if (emailEl.value.trim() && !/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(emailEl.value.trim())) {
-    emailEl.style.borderColor = 'var(--red)';
-    if (!errors.includes(emailEl)) errors.push(emailEl);
-  }
-
-  // Phone: must contain at least 7 digits (allows spaces, dashes, +, parens)
-  const phoneEl = form.querySelector('#phone');
-  if (phoneEl.value.trim() && (phoneEl.value.replace(/\D/g, '').length < 7)) {
-    phoneEl.style.borderColor = 'var(--red)';
-    if (!errors.includes(phoneEl)) errors.push(phoneEl);
-  }
-
-  if (errors.length > 0) {
-    const hasEmpty  = errors.some(el => el.type !== 'checkbox' && !el.value.trim());
-    const hasCheck  = errors.some(el => el.type === 'checkbox');
-    const hasBadEmail = emailEl.style.borderColor === 'var(--red)' && emailEl.value.trim();
-    const hasBadPhone = phoneEl.style.borderColor === 'var(--red)' && phoneEl.value.trim();
-
-    let msg = '';
-    if (hasEmpty || hasCheck) msg = msgs.errRequired;
-    if (hasBadEmail)          msg = msg ? msg : msgs.errEmail;
-    if (hasBadPhone)          msg = msg ? msg + ' ' + msgs.errPhoneSuffix : msgs.errPhone;
-
-    errBox.textContent = msg;
-    errBox.style.display = 'block';
-    errors[0].focus();
-    return;
-  }
-
-  errBox.style.display = 'none';
-
-  // Send the enquiry; only show the thank-you once the server has accepted it
-  const button = form.querySelector('.btn-submit');
-  button.disabled = true;
-  let sent = false;
-  try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...Object.fromEntries(new FormData(form)), lang: document.documentElement.lang }),
-    });
-    sent = res.ok;
-  } catch { /* network failure: handled below */ }
-  if (!sent) {
-    button.disabled = false;
-    errBox.textContent = msgs.errSend;
-    errBox.style.display = 'block';
-    return;
-  }
-
-  // Fade out form, show success
-  wrap.style.transition = 'opacity 0.5s ease';
-  wrap.style.opacity = '0';
-  setTimeout(() => {
-    wrap.style.display = 'none';
-    success.style.display = 'block';
-    success.style.opacity = '0';
-    success.style.transition = 'opacity 0.6s ease';
-    requestAnimationFrame(() => { success.style.opacity = '1'; });
-  }, 500);
-});
-
-// Clear red border on input
-if (consultForm) consultForm.querySelectorAll('input, select').forEach(el => {
-  el.addEventListener('input', () => { el.style.borderColor = ''; });
-  el.addEventListener('change', () => { el.style.borderColor = ''; });
-});
 // ── PRELOADER ──
 (function() {
   const loader = document.getElementById('preloader');
@@ -363,7 +212,9 @@ if (consultForm) consultForm.querySelectorAll('input, select').forEach(el => {
   const frame = document.getElementById('ytFrame');
   if (!lb || !frame) return;
 
-  function open(id) {
+  let opener = null;
+
+  function open(id, tile) {
     // referrerpolicy is required: without a valid Referer the player refuses to
     // configure itself and shows "error 153". Needs a real http(s) origin too —
     // opening the page over file:// gives an opaque origin and still fails.
@@ -379,6 +230,9 @@ if (consultForm) consultForm.querySelectorAll('input, select').forEach(el => {
     // backgrounded tabs — that would leave the lightbox stuck at opacity 0.
     void lb.offsetHeight;
     lb.classList.add('open');
+    // Keyboard users land on the close button and return to the tile afterwards
+    opener = tile;
+    document.getElementById('ytClose').focus();
   }
 
   function close() {
@@ -386,11 +240,12 @@ if (consultForm) consultForm.querySelectorAll('input, select').forEach(el => {
     document.body.style.overflow = '';
     // Dropping the iframe is what actually stops playback
     setTimeout(() => { lb.hidden = true; frame.innerHTML = ''; }, 300);
+    if (opener && opener.focus) opener.focus();
   }
 
   document.addEventListener('click', e => {
     const tile = e.target.closest('.g-video');
-    if (tile) { open(tile.dataset.yt); return; }
+    if (tile) { open(tile.dataset.yt, tile); return; }
     if (e.target.closest('#ytClose') || e.target === lb) close();
   });
 
@@ -422,4 +277,15 @@ if (consultForm) consultForm.querySelectorAll('input, select').forEach(el => {
   document.addEventListener('click', e => {
     if (e.target.closest('#back-top')) window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+})();
+
+// ── REDUCED MOTION ──
+// Visitors who ask their system for less motion get a still hero (the poster) and
+// a way to start the video themselves.
+(function() {
+  const video = document.querySelector('.hero video');
+  if (!video || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  video.removeAttribute('autoplay');
+  video.pause();
+  video.controls = true;
 })();

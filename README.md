@@ -6,6 +6,7 @@ content. Astro 7 on Node, no database: content is one JSON file on disk.
 - Why it is built this way: `docs/decisions/0001-framework-and-cms.md`
 - How it is put together: `docs/specs/2026-10-01-site-and-cms-design.md`
 - Project log, deviations from the original, open items: `docs/PM.md`
+- Technical SEO and UX audit: `docs/audit-2026-10-01.md`
 - The original hand-written site, kept as the visual reference: `legacy/`
 
 ## Run it
@@ -37,7 +38,6 @@ press **Save changes** (or Ctrl/Cmd+S). The site updates immediately.
 - Lists (logos, projects, gallery tiles, team…) can be reordered with the arrows.
 - Images are resized and converted to WebP on upload. Video must be MP4 or WebM.
 - **History** keeps the last 30 versions and can restore any of them.
-- **Enquiries** lists what visitors sent through the contact form.
 - **Coming soon page** hides the whole site behind one notice until you switch it
   off. Signed in, you still see the real site.
 - The Hungarian site is switched on under **Settings**. While it is off, `/hu/`
@@ -51,8 +51,7 @@ Set through environment variables (see `.env.example`):
 |---|---|
 | `ADMIN_PASSWORD` | Required. The admin password. Sign-in is refused while it is unset. |
 | `SESSION_SECRET` | Optional signing key for sessions. Defaults to one derived from the password. |
-| `DATA_DIR` | Where content, uploads, history and enquiries are stored. Default `./data`. |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `NOTIFY_TO` | Optional. Emails each enquiry. Without `SMTP_HOST`, enquiries are only stored. |
+| `DATA_DIR` | Where content, uploads and history are stored. Default `./data`. |
 | `TRUST_PROXY` | `1` behind a reverse proxy (the Docker setup sets it), so rate limits see the visitor's address. |
 | `HOST`, `PORT` | Where the server listens. |
 
@@ -72,12 +71,12 @@ ADMIN_PASSWORD=something docker compose -f docker-compose.yml -f docker-compose.
 ```
 
 **Back up the data.** The admin's History page downloads everything (texts, uploads,
-history, enquiries) as one `.tar.gz`.
+history) as one `.tar.gz`.
 
 ## Where things are
 
 ```
-src/cms/         content schema, seed, storage, auth, media, enquiries
+src/cms/         content schema, seed, storage, auth, media
 src/components/  one component per section of the page
 src/pages/       routes: /, /hu/, legal pages, /admin, /api/*
 src/admin/       the admin's client code and styles

@@ -8,7 +8,7 @@ import Services from './Services.astro';
 import Work from './Work.astro';
 import Gallery from './Gallery.astro';
 import Team from './Team.astro';
-import ContactForm from './ContactForm.astro';
+import Contact from './Contact.astro';
 import Footer from './Footer.astro';
 import type { Content, Lang } from '../cms/schema';
 
@@ -18,13 +18,15 @@ const paths = { en: '/', hu: '/hu/' };
 ---
 <Base {content} {lang} {paths} {noindex} preloader schema>
   <Header {content} {lang} {paths} home="" />
+  <main>
   <Hero hero={content.hero} {lang} />
   <Brands brands={content.brands} {lang} />
   <Services intro={content.intro} services={content.services} {lang} />
   <Work work={content.work} {lang} />
   <Gallery gallery={content.gallery} {lang} />
   <Team team={content.team} {lang} />
-  <ContactForm form={content.form} {lang} />
+  <Contact form={content.form} contact={content.contact} {lang} />
+  </main>
   <Footer {content} {lang} home="" />
   <slot />
 </Base>

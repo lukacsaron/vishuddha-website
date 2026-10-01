@@ -32,8 +32,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY package.json ./
 
-# Everything edited in the admin lives in /data: content.json, history/, uploads/,
-# enquiries.json. A named volume MUST be mounted here or it is lost on every deploy.
+# Everything edited in the admin lives in /data: content.json, history/, uploads/.
+# A named volume MUST be mounted here or it is lost on every deploy.
 RUN apk add --no-cache su-exec && mkdir /data && chown node:node /data
 VOLUME /data
 

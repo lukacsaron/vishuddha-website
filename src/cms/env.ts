@@ -16,16 +16,4 @@ export const env = {
   /** Set when a reverse proxy (Traefik on Coolify) sits in front and its forwarded headers can be trusted */
   get trustProxy() { return process.env.TRUST_PROXY === '1'; },
   get isProd() { return process.env.NODE_ENV === 'production'; },
-  get smtp() {
-    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, NOTIFY_TO } = process.env;
-    if (!SMTP_HOST) return null;
-    return {
-      host: SMTP_HOST,
-      port: Number(SMTP_PORT || 587),
-      user: SMTP_USER || '',
-      pass: SMTP_PASS || '',
-      from: SMTP_FROM || SMTP_USER || '',
-      to: NOTIFY_TO || '',
-    };
-  },
 };

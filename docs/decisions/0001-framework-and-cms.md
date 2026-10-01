@@ -1,5 +1,10 @@
 # ADR 0001 — Framework and CMS
 
+> Later on 2026-10-01 the contact form was removed at the owner's request: the
+> contact section now shows the email address and phone number only. The
+> enquiry storage, `/api/contact` and SMTP notification described below no
+> longer exist. The rest stands.
+
 Date: 2026-10-01. Status: accepted.
 
 ## What the site actually is

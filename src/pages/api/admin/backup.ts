@@ -1,4 +1,4 @@
-// Streams the whole data directory (content, history, enquiries, uploads) as a .tar.gz.
+// Streams the whole data directory (content, history, uploads) as a .tar.gz.
 import type { APIRoute } from 'astro';
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';

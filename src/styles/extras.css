@@ -1,9 +1,18 @@
 /* Additions to the original stylesheet (site.css stays a verbatim port). */
 
-.btn-submit:disabled { opacity: 0.6; cursor: wait; transform: none; }
-
-/* Spam trap: present for bots, out of reach for people */
-.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* ── CONTACT DETAILS ── */
+.contact-details { display: flex; flex-direction: column; gap: 34px; }
+.contact-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 10px;
+}
+.contact-value {
+  display: inline-block; color: var(--white); text-decoration: none;
+  font-size: clamp(20px, 3.4vw, 38px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2;
+  overflow-wrap: anywhere;
+  border-bottom: 2px solid transparent; transition: border-color 0.2s, color 0.2s;
+}
+.contact-value:hover, .contact-value:focus-visible { border-bottom-color: var(--red); }
 
 #back-top { cursor: pointer; }
 
@@ -25,3 +34,62 @@
   font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-align: center; padding: 9px 16px;
 }
 .preview-note a { color: var(--white); }
+
+/* ── HERO POSTERS ── */
+/* Painted behind the video until its first frame arrives. A CSS background rather than
+   the poster attribute, because that attribute cannot vary by screen. */
+.hero video { background: var(--poster, none) center / cover no-repeat; }
+@media (orientation: portrait) and (max-width: 900px) {
+  .hero video { background-image: var(--poster-mobile, var(--poster, none)); }
+}
+
+/* ── ANCHOR OFFSET ── */
+/* The header is fixed, so a menu link must stop short of the top by the header's
+   scrolled height (logo 72px + 2 × padding + 1px border) or the section's first
+   lines end up underneath it. */
+html { scroll-padding-top: 99px; }
+@media (max-width: 900px) { html { scroll-padding-top: 93px; } }
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .slider-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 20px; }
+  /* The track is doubled for the endless loop; show each logo once when it stands still */
+  .slider-track img[aria-hidden="true"] { display: none; }
+  .hero-eyebrow, .hero-rolling-title, .hero-sub, .hero-cta { animation-duration: 0.01s; animation-delay: 0s; }
+  .rolling-words { transition: none !important; }
+  .photo-cell img, .team-photo img, .g-video img { transition: none; }
+}
+
+/* ── KEYBOARD FOCUS ── */
+:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+
+/* ── SMALL PHONES ── */
+/* At 360px and below the logo, language switch and Contact button no longer fit on
+   one row and the button was cut off at the screen edge. */
+@media (max-width: 400px) {
+  header, header.scrolled { padding-left: 12px; padding-right: 12px; gap: 10px; }
+  header { padding-top: 12px; padding-bottom: 12px; }
+  .logo-wrap img { height: 56px !important; }
+  .header-right { gap: 12px; }
+  html { scroll-padding-top: 77px; }
+}
+
+/* ── TAP TARGETS ── */
+/* Small links keep their look but get a larger invisible hit area on touch screens */
+@media (pointer: coarse) {
+  .lang-switch a, .btn-cta, .footer-col ul li a { position: relative; }
+  .lang-switch a::after { content: ''; position: absolute; inset: -11px -1px; }
+  .btn-cta::after { content: ''; position: absolute; inset: -6px 0; }
+  .footer-col ul li a::after { content: ''; position: absolute; inset: -5px 0; }
+}
+
+/* ── CONTRAST ── */
+/* These small texts were below the 4.5:1 minimum against brand blue; 0.62 white reaches it */
+.header-nav a { color: rgba(255,255,255,0.62); }
+.header-nav a:hover, .header-nav a.active { color: var(--white); }
+.lang-switch a { color: rgba(255,255,255,0.62); }
+.lang-switch a:hover, .lang-switch a.active { color: var(--white); }
+.footer-col h4 { color: rgba(255,255,255,0.62); }
+.footer-bottom, .footer-bottom a { color: rgba(255,255,255,0.62); }

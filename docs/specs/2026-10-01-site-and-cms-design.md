@@ -1,5 +1,10 @@
 # Design — Vishuddha site and CMS
 
+> Later on 2026-10-01 the contact form was removed at the owner's request: the
+> contact section now shows the email address and phone number only. The
+> enquiry storage, `/api/contact` and SMTP notification described below no
+> longer exist. The rest stands.
+
 See `GOAL.md` for the goal and `docs/decisions/0001-framework-and-cms.md` for why
 Astro + a custom file-backed CMS.
 

@@ -19,7 +19,7 @@ Why it is set up this way: `docs/decisions/0002-coolify-deployment.md`.
 4. **Environment variables**: Coolify lists the variables from the compose file.
    It pre-fills `ADMIN_PASSWORD` with the placeholder text `Set ADMIN_PASSWORD`,
    which would work as a password: replace it with a long random value. The
-   rest are optional, see `coolify.env.example`. The deploy fails on purpose if
+   `SESSION_SECRET` is optional, see `coolify.env.example`. The deploy fails on purpose if
    `ADMIN_PASSWORD` is missing.
 5. **Deploy.** When the container reports healthy, open the domain.
 6. **Check persistence once, before anyone edits real content:** sign in at
@@ -41,7 +41,6 @@ One named volume, `site-data`, mounted at `/data`:
 /data/content.json      everything edited in the admin
 /data/history/          the last 30 versions
 /data/uploads/          uploaded photos and videos
-/data/enquiries.json    contact form submissions
 ```
 
 On the host Coolify stores it as a Docker volume, usually named
@@ -95,7 +94,6 @@ content saved by an older version keeps working.
 | Site shows original texts, edits gone | A new empty volume was mounted: name, mount path or service name changed, or the app was recreated. The old volume is usually still on the host: `docker volume ls` |
 | Saving in the admin says "Cross-site request refused" | The proxy is not passing the original `Host`. Coolify's Traefik does by default |
 | Sign-in works, then every page says not signed in | The cookie is marked secure but the site was opened over plain http. Use https |
-| Every visitor gets "too many requests" on the contact form | `TRUST_PROXY` was removed, so all visitors share the proxy's address |
 | Site returns 503 to everyone | The coming soon page is on. Sign in at `/admin` → Coming soon page |
 
 ## Running the same container locally

@@ -1,0 +1,21 @@
+---
+import Splash from '../components/Splash.astro';
+import type { Lang } from '../cms/schema';
+import { getContent } from '../cms/store';
+
+const lang: Lang = Astro.url.pathname.startsWith('/hu') ? 'hu' : 'en';
+const text = {
+  en: { title: 'Page not found', sub: 'This page does not exist or has moved', button: 'Back to the site' },
+  hu: { title: 'Az oldal nem található', sub: 'Ez az oldal nem létezik vagy elköltözött', button: 'Vissza a főoldalra' },
+}[lang];
+Astro.response.status = 404;
+---
+<Splash
+  content={getContent()}
+  {lang}
+  pageTitle={`${text.title} | Vishuddha Productions`}
+  description={text.sub}
+  title={text.title}
+  text={text.sub}
+  button={{ href: lang === 'hu' ? '/hu/' : '/', label: text.button }}
+/>

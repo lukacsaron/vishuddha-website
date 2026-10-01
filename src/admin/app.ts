@@ -257,56 +257,6 @@ function viewSection(id: string) {
   );
 }
 
-async function viewEnquiries() {
-  main.replaceChildren(h('h1', {}, 'Enquiries'), h('p', { class: 'intro' }, 'Loading…'));
-  const res = await api('/api/admin/enquiries');
-  if (!res.ok) return toast(res.data.error || 'Could not load enquiries.', 'error');
-  const all: Json[] = res.data;
-  updateBadge(all);
-  const options: Json[] = state.content.form.options;
-  const serviceName = (value: string) => asText(options.find((o) => o.value === value)?.label) || value;
-
-  main.replaceChildren(
-    h('h1', {}, 'Enquiries'),
-    h('p', { class: 'intro' }, all.length
-      ? 'Messages sent through the contact form, newest first.'
-      : 'Nothing yet. Messages sent through the contact form will appear here.'),
-    ...all.map((e) => h('article', { class: `enquiry${e.read ? '' : ' unread'}` },
-      h('header', {},
-        h('strong', {}, e.name), ' · ', e.company,
-        h('time', {}, fmtDate(e.receivedAt)),
-      ),
-      h('p', { class: 'enquiry-meta' },
-        h('a', { href: `mailto:${e.email}` }, e.email), ' · ',
-        h('a', { href: `tel:${e.phone.replace(/[^\d+]/g, '')}` }, e.phone), ' · ',
-        serviceName(e.service), ' · ', e.lang.toUpperCase(),
-      ),
-      e.message ? h('p', { class: 'enquiry-message' }, e.message) : null,
-      h('div', { class: 'enquiry-actions' },
-        h('button', {
-          type: 'button', class: 'btn subtle',
-          onclick: async () => { await api('/api/admin/enquiries', sendJson('PATCH', { id: e.id, read: !e.read })); viewEnquiries(); },
-        }, e.read ? 'Mark as unread' : 'Mark as read'),
-        h('button', {
-          type: 'button', class: 'btn subtle danger',
-          onclick: async () => {
-            if (!confirm(`Delete the enquiry from ${e.name}? This cannot be undone.`)) return;
-            await api(`/api/admin/enquiries?id=${encodeURIComponent(e.id)}`, { method: 'DELETE' });
-            viewEnquiries();
-          },
-        }, 'Delete'),
-      ),
-    )),
-  );
-}
-
-function updateBadge(all: Json[]) {
-  const unread = all.filter((e) => !e.read).length;
-  const badge = document.getElementById('badge')!;
-  badge.textContent = unread ? String(unread) : '';
-  badge.hidden = !unread;
-}
-
 async function viewMedia() {
   main.replaceChildren(h('h1', {}, 'Media'), h('p', { class: 'intro' }, 'Loading…'));
   const res = await api('/api/admin/media');
@@ -364,7 +314,7 @@ async function viewHistory() {
       }, 'Restore'),
     ))),
     h('h2', {}, 'Backup'),
-    h('p', { class: 'intro' }, 'The full backup holds everything edited or uploaded here: texts, history, enquiries, photos and videos. Keep a copy somewhere safe from time to time.'),
+    h('p', { class: 'intro' }, 'The full backup holds everything edited or uploaded here: texts, history, photos and videos. Keep a copy somewhere safe from time to time.'),
     h('p', { class: 'backup-actions' },
       h('a', { href: '/api/admin/backup', class: 'btn primary' }, 'Download full backup'),
       h('a', { href: '/api/admin/export', class: 'btn' }, 'Texts only (JSON)'),
@@ -372,7 +322,7 @@ async function viewHistory() {
   );
 }
 
-const tools: Record<string, () => void> = { enquiries: viewEnquiries, media: viewMedia, history: viewHistory };
+const tools: Record<string, () => void> = { media: viewMedia, history: viewHistory };
 
 function currentView(): string {
   const id = location.hash.slice(1);
@@ -440,7 +390,6 @@ function buildNav() {
   }
   nav.append(
     h('p', { class: 'nav-group' }, 'Tools'),
-    link('enquiries', 'Enquiries', h('span', { id: 'badge', class: 'badge', hidden: true })),
     link('media', 'Media'),
     link('history', 'History'),
   );
@@ -455,7 +404,6 @@ async function boot() {
   }
   load(res.data);
   render();
-  api('/api/admin/enquiries').then((r) => r.ok && updateBadge(r.data));
 
   window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); });
   saveBtn.addEventListener('click', save);

@@ -8,6 +8,23 @@ const json = (status: number, error: string) =>
 // Assets and files that must keep working while the coming soon page is on
 const EXEMPT_FROM_COMING_SOON = /^\/(uploads|media|_astro|_image)\/|^\/(robots\.txt|favicon\.png)$/;
 
+// The site runs its own scripts only. Images and video may also come from a full
+// https address typed into the admin; YouTube supplies gallery thumbnails and the player.
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https:",
+  "media-src 'self' https:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "frame-src https://www.youtube-nocookie.com",
+  "frame-ancestors 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+].join('; ');
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
   const { method } = context.request;
@@ -46,5 +63,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // The YouTube player in the lightbox refuses to start without a referrer
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   if (isAdminArea) response.headers.set('Cache-Control', 'no-store');
+  if (context.request.headers.get('x-forwarded-proto') === 'https') {
+    response.headers.set('Strict-Transport-Security', 'max-age=31536000');
+  }
+  // Not in dev: Vite's hot reloading needs inline scripts and a websocket
+  if (import.meta.env.PROD) response.headers.set('Content-Security-Policy', CSP);
   return response;
 });

@@ -1,0 +1,30 @@
+---
+import { t, type Content, type Lang } from '../cms/schema';
+import Br from './Br.astro';
+
+interface Props { form: Content['form']; contact: Content['contact']; lang: Lang }
+const { form, contact, lang } = Astro.props;
+const tel = contact.phone.replace(/[^\d+]/g, '');
+---
+<section class="form-section" id="contact" data-nav="contact">
+  <div class="reveal">
+    <p class="section-label">{t(form.label, lang)}</p>
+    <h2 class="section-title"><Br text={t(form.title, lang)} /></h2>
+    <p class="section-body">{t(form.body, lang)}</p>
+  </div>
+
+  <div class="contact-details reveal">
+    {contact.email && (
+      <div class="contact-item">
+        <p class="contact-label">{t(form.emailLabel, lang)}</p>
+        <a class="contact-value" href={`mailto:${contact.email}`}>{contact.email}</a>
+      </div>
+    )}
+    {contact.phone && (
+      <div class="contact-item">
+        <p class="contact-label">{t(form.phoneLabel, lang)}</p>
+        <a class="contact-value" href={`tel:${tel}`}>{contact.phone}</a>
+      </div>
+    )}
+  </div>
+</section>

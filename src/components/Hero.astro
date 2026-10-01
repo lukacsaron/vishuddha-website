@@ -5,12 +5,20 @@ import Br from './Br.astro';
 
 interface Props { hero: Content['hero']; lang: Lang }
 const { hero, lang } = Astro.props;
-const videoType = hero.video.toLowerCase().endsWith('.webm') ? 'video/webm' : 'video/mp4';
+const type = (src: string) => (src.toLowerCase().endsWith('.webm') ? 'video/webm' : 'video/mp4');
+// Phones and tablets held upright get the vertical clip. Must match the query in extras.css.
+const MOBILE = '(orientation: portrait) and (max-width: 900px)';
+const posters = [
+  hero.poster && `--poster: url("${hero.poster}")`,
+  hero.posterMobile && `--poster-mobile: url("${hero.posterMobile}")`,
+].filter(Boolean).join('; ');
 ---
 <section class="hero">
-  {hero.video && (
-    <video autoplay muted loop playsinline poster={hero.poster || undefined}>
-      <source src={hero.video} type={videoType} />
+  {(hero.video || hero.videoMobile) && (
+    <video autoplay muted loop playsinline style={posters || undefined}>
+      {/* The browser plays the first source whose media query matches */}
+      {hero.videoMobile && <source src={hero.videoMobile} type={type(hero.videoMobile)} media={MOBILE} />}
+      {hero.video && <source src={hero.video} type={type(hero.video)} />}
     </video>
   )}
 
