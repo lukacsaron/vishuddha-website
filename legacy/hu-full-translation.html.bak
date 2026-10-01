@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>Vishuddha Productions | Social Média Kezelés & Videógyártás Budapest</title>
+  <meta name="description" content="A Vishuddha Productions egy budapesti mikro-ügynökség, amely közösségi média kezelésre, PPC hirdetéskezelésre, filmgyártásra és fotózásra specializálódott magyar vállalkozások számára." />
+  <meta name="keywords" content="social media kezelés Budapest, PPC hirdetéskezelés, Google Ads kezelés, Facebook hirdetések, videógyártás Budapest, filmgyártás Budapest, fotózás Budapest, digitális marketing Magyarország" />
+  <link rel="canonical" href="https://vishuddhaproductions.com/hu/" />
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="en" href="https://vishuddhaproductions.com/" />
+  <link rel="alternate" hreflang="hu" href="https://vishuddhaproductions.com/hu/" />
+  <link rel="alternate" hreflang="x-default" href="https://vishuddhaproductions.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://vishuddhaproductions.com/hu/" />
+  <meta property="og:title"       content="Vishuddha Productions | Social Média Kezelés & Videógyártás Budapest" />
+  <meta property="og:description" content="Budapesti mikro-ügynökség: közösségi média kezelés, PPC hirdetések, filmgyártás és fotózás magyar vállalkozásoknak." />
+  <meta property="og:image"       content="https://vishuddhaproductions.com/og-image.jpg" />
+  <meta property="og:locale"      content="hu_HU" />
+  <meta property="og:site_name"   content="Vishuddha Productions" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Vishuddha Productions | Social Média Kezelés & Videógyártás Budapest" />
+  <meta name="twitter:description" content="Budapesti mikro-ügynökség: közösségi média kezelés, PPC hirdetések, filmgyártás és fotózás." />
+  <meta name="twitter:image"       content="https://vishuddhaproductions.com/og-image.jpg" />
+
+  <!-- Schema.org – LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Vishuddha Productions",
+    "description": "Budapesti mikro-ügynökség, amely közösségi média kezelésre, PPC hirdetéskezelésre, filmgyártásra és fotózásra specializálódott magyar vállalkozások számára.",
+    "url": "https://vishuddhaproductions.com",
+    "telephone": "+36203337305",
+    "email": "hello@vishuddhaproductions.com",
+    "logo": "https://vishuddhaproductions.com/logo.png",
+    "image": "https://vishuddhaproductions.com/og-image.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Budapest",
+      "addressCountry": "HU"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Hungary"
+    },
+    "sameAs": [
+      "https://www.instagram.com/vishuddha.productions"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Szolgáltatások",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Social Média Kezelés" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "PPC Hirdetéskezelés" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Filmgyártás" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fotózás" } }
+      ]
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #080808;
+      --white:  #ffffff;
+      --blue:   #002fa7;
+      --red:    #dc443a;
+      --gray:   #999999;
+      --gray-d: #2a2a2a;
+      --font:   'Montserrat', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      font-weight: 400;
+      background: var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: var(--blue);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      transition: padding 0.3s;
+      gap: 20px;
+    }
+
+    header.scrolled { padding: 13px 60px; }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-img {
+      height: 42px;
+      width: auto;
+      display: flex;
+      align-items: center;
+      border: 1.5px dashed rgba(255,255,255,0.4);
+      padding: 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      white-space: nowrap;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-shrink: 0;
+    }
+
+    .header-contact {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .header-contact a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .header-contact a:hover { color: var(--white); }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .lang-switch a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 5px 9px;
+      border-radius: 3px;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .lang-switch a:hover { color: var(--white); }
+
+    .lang-switch a.active {
+      color: var(--white);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .lang-switch .sep {
+      color: rgba(255,255,255,0.2);
+      font-size: 11px;
+      user-select: none;
+    }
+
+    .btn-cta {
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 11px 22px;
+      border-radius: 3px;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-cta:hover { background: #c4372f; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      background: #000;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero video,
+    .hero iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+      opacity: 0.5;
+    }
+
+    .hero-video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      border: 2px dashed rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.22);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero-video-placeholder .ph-play {
+      width: 80px;
+      height: 80px;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      padding-left: 4px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.25) 0%, rgba(8,8,8,0) 35%, rgba(8,8,8,0.75) 75%, rgba(8,8,8,1) 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 60px 90px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-rolling-title {
+      font-size: clamp(44px, 7.5vw, 100px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.22em;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.6s forwards;
+    }
+
+    .hero-rolling-title .we-static {
+      color: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .rolling-slot {
+      display: inline-block;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .rolling-words {
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.55s cubic-bezier(.77,0,.175,1);
+      will-change: transform;
+    }
+
+    .rolling-words span {
+      display: block;
+      color: var(--blue);
+      white-space: nowrap;
+      line-height: 1;
+      padding: 0.1em 0 0.22em;
+    }
+
+    .hero-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s 1s forwards;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION COMMONS ── */
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+
+    .section-label.orange { color: var(--red); }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 50px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+
+    .section-body {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.85;
+      max-width: 560px;
+    }
+
+    .divider-line {
+      height: 1px;
+      background: var(--gray-d);
+      margin: 0 60px;
+    }
+
+    /* ── SERVICES ── */
+    .services-section { padding: 30px 60px 0; }
+
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    /* ── BRANDS SLIDER ── */
+    .brands-inline {
+      padding: 50px 0 70px;
+      overflow: hidden;
+      border-top: 1px solid var(--gray-d);
+      border-bottom: 1px solid var(--gray-d);
+      margin-bottom: 70px;
+    }
+
+    .brands-label {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 32px;
+    }
+
+    .slider-wrap { overflow: hidden; }
+
+    .slider-track {
+      display: flex;
+      gap: 40px;
+      width: max-content;
+      animation: slide 22s linear infinite;
+      align-items: center;
+    }
+
+    .slider-track:hover { animation-play-state: paused; }
+
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .logo-item {
+      width: 148px;
+      height: 50px;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .logo-item:hover { border-color: rgba(255,255,255,0.28); color: rgba(255,255,255,0.55); }
+
+    /* ── STATS ── */
+    .stats-section {
+      background: var(--red);
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: clamp(38px, 5vw, 62px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── SPLIT SECTIONS ── */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .split-text {
+      padding: 90px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .split-media {
+      position: relative;
+      min-height: 460px;
+      background: #0f0f0f;
+      overflow: hidden;
+    }
+
+    .split-media .photo-ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 2px dashed rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.18);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .split-media .photo-ph .ph-icon {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+
+    .split-section.reverse .split-text { order: 2; }
+    .split-section.reverse .split-media { order: 1; }
+
+    /* ── PHOTO GRID ── */
+    .photo-grid-section {
+      padding: 0 60px 100px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .photo-cell {
+      aspect-ratio: 4/3;
+      background: #0f0f0f;
+      border: 1.5px dashed rgba(255,255,255,0.07);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.18);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+
+    .photo-cell:hover { border-color: rgba(255,255,255,0.16); }
+
+    .photo-cell .ph-icon {
+      width: 44px;
+      height: 44px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── TEAM ── */
+    .team-section { padding: 100px 60px; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      margin-top: 56px;
+    }
+
+    .team-card {
+      background: #0d0d0d;
+      border: 1px solid var(--gray-d);
+      border-radius: 5px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .team-card:hover { border-color: rgba(0,47,167,0.45); }
+
+    .team-photo {
+      width: 100%;
+      aspect-ratio: 3/2;
+      background: #161616;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.15);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--gray-d);
+    }
+
+    .team-photo .ph-icon {
+      width: 52px;
+      height: 52px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-info { padding: 34px 34px 38px; }
+
+    .team-role {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    .team-name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 14px;
+    }
+
+    .team-bio {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.82;
+    }
+
+    /* ── FORM ── */
+    .form-section {
+      padding: 100px 60px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-section .section-body {
+      margin-bottom: 52px;
+      max-width: 100%;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 9px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: #0d0d0d;
+      border: 1px solid var(--gray-d);
+      color: var(--white);
+      padding: 14px 15px;
+      font-size: 14px;
+      font-family: var(--font);
+      font-weight: 400;
+      border-radius: 3px;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.16); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue); }
+
+    .form-group select option { background: #0d0d0d; }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 28px;
+      cursor: pointer;
+    }
+
+    .form-consent input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      margin-top: 2px;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    .form-consent .consent-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+
+    .form-consent .consent-text a {
+      color: var(--white);
+      text-decoration: underline;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 17px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-submit:hover { background: #c4372f; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--blue);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 60px 60px 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 56px;
+    }
+
+    .footer-logo-wrap .logo-img { margin-bottom: 20px; }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .footer-social a:hover { border-color: var(--white); color: var(--white); }
+
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .footer-col ul li a {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-col.contact-col ul li a:hover { color: rgba(255,255,255,1); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .ph-svg { width: 22px; height: 22px; opacity: 0.4; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      header { padding: 14px 20px; }
+      header.scrolled { padding: 10px 20px; }
+      .header-contact { display: none; }
+      .hero-rolling-title { letter-spacing: -1px; gap: 0.15em; }
+      .hero-content { padding: 0 20px 56px; }
+      .hero-eyebrow { font-size: 10px; letter-spacing: 3px; }
+      .hero-sub { font-size: 10px; letter-spacing: 1.5px; }
+      .services-section { padding: 30px 20px 0; }
+      .services-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+      .brands-inline { padding: 36px 0 50px; margin-bottom: 0; }
+      .stats-section { grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 50px 20px; }
+      .stat-num { font-size: clamp(28px, 8vw, 48px); letter-spacing: -1px; }
+      .stat-label { font-size: 9px; letter-spacing: 1px; }
+      .split-section { grid-template-columns: 1fr; }
+      .split-section.reverse .split-text,
+      .split-section.reverse .split-media { order: unset; }
+      .split-media { min-height: 240px; }
+      .split-text { padding: 50px 20px; }
+      .photo-grid-section { grid-template-columns: 1fr 1fr; padding: 0 20px 60px; }
+      .divider-line { margin: 0 20px; }
+      .team-section { padding: 60px 20px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .form-section { padding: 60px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 50px 20px 28px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-rolling-title { font-size: clamp(36px, 11vw, 44px); letter-spacing: -0.5px; }
+      .btn-cta { padding: 10px 14px; font-size: 10px; letter-spacing: 1px; }
+      .lang-switch a { padding: 5px 7px; font-size: 10px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .stats-section { gap: 8px; padding: 44px 16px; }
+      .stat-num { font-size: clamp(24px, 9vw, 36px); }
+      .stat-label { font-size: 8px; }
+      .photo-grid-section { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header id="site-header">
+  <a href="hu.html" class="logo-wrap">
+    <div class="logo-img">VISHUDDHA</div>
+  </a>
+  <div class="header-right">
+    <nav class="header-contact">
+      <a href="tel:+36203337305">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.19 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +36 20 333 7305
+      </a>
+      <a href="mailto:hello@vishuddhaproductions.com">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        hello@vishuddhaproductions.com
+      </a>
+    </nav>
+    <div class="lang-switch">
+      <a href="index.html" hreflang="en">EN</a>
+      <span class="sep">|</span>
+      <a href="hu.html" class="active" hreflang="hu">HU</a>
+    </div>
+    <a href="#kapcsolat" class="btn-cta">Kapcsolat</a>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <!--
+    OPTION A — Helyi videó:
+    <video autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+
+    OPTION B — YouTube (VIDEO_ID csere):
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID&controls=0&rel=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+    OPTION C — Vimeo (VIDEO_ID csere):
+    <iframe src="https://player.vimeo.com/video/VIDEO_ID?autoplay=1&loop=1&muted=1&background=1" allow="autoplay; fullscreen"></iframe>
+  -->
+  <div class="hero-video-placeholder">
+    <div class="ph-play">▶</div>
+    <span>Hero Videó</span>
+    <span style="font-size:10px;margin-top:2px;">YouTube / Vimeo / helyi .mp4</span>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Budapesti<br>mikro-ügynökség</p>
+
+    <h1 class="hero-rolling-title">
+      <span class="we-static">Mi</span>
+      <span class="rolling-slot" id="rollingSlot">
+        <div class="rolling-words" id="rollingWords">
+          <span>alkotunk</span>
+          <span>szervezünk</span>
+          <span>forgatunk</span>
+          <span>vizualizálunk</span>
+          <span>brandet építünk</span>
+          <span>növelünk</span>
+        </div>
+      </span>
+    </h1>
+
+    <p class="hero-sub">Filmgyártás &nbsp;&middot;&nbsp; Fotózás &nbsp;&middot;&nbsp; Social Media &nbsp;&middot;&nbsp; Digitális Marketing</p>
+  </div>
+</section>
+
+<!-- ══ PARTNEREINK ══ -->
+<div class="brands-inline reveal">
+  <p class="brands-label">Partnereink</p>
+  <div class="slider-wrap">
+    <div class="slider-track">
+      <div class="logo-item">OTP Bank</div>
+      <div class="logo-item">Petra Flow</div>
+      <div class="logo-item">TJAS EVDEM</div>
+      <div class="logo-item">Theodora</div>
+      <div class="logo-item">St. James</div>
+      <div class="logo-item">Budapest Bagel</div>
+      <div class="logo-item">Men OKE</div>
+      <div class="logo-item">Music Videos</div>
+      <div class="logo-item">OTP Bank</div>
+      <div class="logo-item">Petra Flow</div>
+      <div class="logo-item">TJAS EVDEM</div>
+      <div class="logo-item">Theodora</div>
+      <div class="logo-item">St. James</div>
+      <div class="logo-item">Budapest Bagel</div>
+      <div class="logo-item">Men OKE</div>
+      <div class="logo-item">Music Videos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SZOLGÁLTATÁSOK ══ -->
+<section class="services-section">
+  <div class="services-header">
+    <div class="reveal">
+      <p class="section-label">Amit Csinálunk</p>
+      <h2 class="section-title">Egy Csapat.<br>Minden Platform.<br>Teljes Körűen.</h2>
+    </div>
+    <div class="reveal">
+      <p class="section-body">
+        Segítünk vállalkozásoknak megteremteni az online jelenlétüket és elérni a megfelelő
+        közönséget, integrált közösségi média kezeléssel, PPC hirdetésekkel és minőségi vizuális
+        tartalomgyártással. Akármilyen nagy az ambíciód vagy szűk a büdzsé, mi megtaláljuk
+        a megfelelő megközelítést a céljaidhoz.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATISZTIKÁK ══ -->
+<div class="stats-section">
+  <div class="reveal">
+    <div class="stat-num">10+</div>
+    <div class="stat-label">Év Tapasztalat</div>
+  </div>
+  <div class="reveal">
+    <div class="stat-num">100+</div>
+    <div class="stat-label">Ügyfél</div>
+  </div>
+  <div class="reveal">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Kreatív Ambíció</div>
+  </div>
+</div>
+
+<!-- ══ SPLIT — Filmgyártás ══ -->
+<div class="divider-line"></div>
+<section id="film" class="split-section reveal">
+  <div class="split-text">
+    <p class="section-label">Filmgyártás</p>
+    <h2 class="section-title">Álmodj Bátran.</h2>
+    <p class="section-body">
+      Akármilyen szűk a büdzsé, mi megtaláljuk a megfelelő kreatív stábot. A legkisebb
+      social média kliptől a nagyszabású kampányokig minden skálán otthon vagyunk —
+      minőségi videótartalmat gyártunk, és szükség esetén a médiaelhelyezést is intézzük.
+    </p>
+  </div>
+  <div class="split-media">
+    <div class="photo-ph">
+      <div class="ph-icon">
+        <svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <span>Film / Showreel Fotó</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPLIT — Fotózás ══ -->
+<div class="divider-line"></div>
+<section id="photo" class="split-section reverse reveal">
+  <div class="split-text">
+    <p class="section-label orange">Fotózás</p>
+    <h2 class="section-title">Social Poszttól a Nagy Kampányig.</h2>
+    <p class="section-body">
+      Social média fotózás. Nagyszabású kampányfotók. Termékfotózás. Brand identity vizuálok.
+      Bármilyen brief érkezik, mi megtaláljuk a megfelelő stábot és megközelítést, hogy pontosan
+      azt kapd, amire a vállalkozásodnak szüksége van.
+    </p>
+  </div>
+  <div class="split-media">
+    <div class="photo-ph">
+      <div class="ph-icon">
+        <svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <span>Fotózás Referencia</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPLIT — Social & Digital ══ -->
+<div class="divider-line"></div>
+<section id="social" class="split-section reveal">
+  <div class="split-text">
+    <p class="section-label">Social Media &amp; Digitális Marketing</p>
+    <h2 class="section-title">Minden Platform. Egy Stratégia.</h2>
+    <p class="section-body">
+      Google Ads. Facebook és Instagram hirdetések. TikTok. Kezeljük fizetett és organikus
+      csatornáidat egy integrált stratégiával. Tartalomgyártás, precíz célzás és folyamatos
+      optimalizáció, több mint 5 év PPC és social média kezelési tapasztalattal, számos iparágban.
+    </p>
+  </div>
+  <div class="split-media">
+    <div class="photo-ph">
+      <div class="ph-icon">
+        <svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <span>Digitális / Social Fotó</span>
+    </div>
+  </div>
+</section>
+<div class="divider-line"></div>
+
+<!-- ══ MUNKÁINK ══ -->
+<div id="work" style="padding: 70px 60px 24px; text-align:center;" class="reveal">
+  <p class="section-label">Munkáink</p>
+  <h2 class="section-title" style="margin-bottom:0;">Válogatott Projektek</h2>
+</div>
+<div class="photo-grid-section reveal" style="margin-top:40px;">
+  <div class="photo-cell">
+    <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+    <span>Projekt Fotó</span>
+  </div>
+  <div class="photo-cell">
+    <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+    <span>Projekt Fotó</span>
+  </div>
+  <div class="photo-cell">
+    <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+    <span>Projekt Fotó</span>
+  </div>
+  <div class="photo-cell">
+    <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+    <span>Projekt Fotó</span>
+  </div>
+  <div class="photo-cell">
+    <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+    <span>Projekt Fotó</span>
+  </div>
+  <div class="photo-cell">
+    <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+    <span>Projekt Fotó</span>
+  </div>
+</div>
+
+<!-- ══ CSAPAT ══ -->
+<section id="team" class="team-section">
+  <div class="reveal" style="text-align:center;">
+    <p class="section-label orange">Rólunk</p>
+    <h2 class="section-title">Az Emberek a Munka Mögött</h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <span>Meister Nikolett — Fotó</span>
+      </div>
+      <div class="team-info">
+        <p class="team-role">Producer</p>
+        <h3 class="team-name">Meister Nikolett</h3>
+        <p class="team-bio">
+          2016-ban újságíróként végeztem az egyetemen, azonban az elmúlt közel 10 évemet a
+          filmgyártásnak szenteltem. A legkisebb produkcióktól kezdve Netflix méretű projekteken
+          át minden területen bizonyítottam gyártásvezetőként. Széles kapcsolatrendszeremnek
+          köszönhetően szinte bármely típusú tartalomhoz meg tudom találni a tökéletes szakembert.
+          A logisztikai szervezés mellett magabiztos vizuális látásmóddal rendelkezem, így az
+          alapvető képi és videós anyagok megalkotását egy kézben tudom felügyelni.
+        </p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="ph-icon"><svg class="ph-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <span>Koncz Balázs — Fotó</span>
+      </div>
+      <div class="team-info">
+        <p class="team-role">Digitális Marketing Specialista</p>
+        <h3 class="team-name">Koncz Balázs</h3>
+        <p class="team-bio">
+          Több mint 5 év digitális marketing tapasztalattal egyedi hirdetési stratégiákat építek,
+          amelyek valódi üzleti növekedést hoznak ügyfeleimnek. 100-nál több partnerrel dolgoztam
+          együtt, nagy vállalatoktól kis- és középvállalkozásokig, rengeteg különböző iparágban.
+          Minden partnerségnél ugyanazzal a szemlélettel állok hozzá: mélyen megérteni az ügyfél
+          üzletét és olyan stratégiát építeni, ami az ő céljaihoz igazodik.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ KAPCSOLATFELVÉTELI ŰR LAP ══ -->
+<section class="form-section" id="kapcsolat">
+  <div class="reveal">
+    <p class="section-label">Kapcsolatfelvétel</p>
+    <h2 class="section-title">Meséld El, Min<br>Dolgozol.</h2>
+    <p class="section-body">
+      Oszd meg a projekted részleteit, és visszajelzünk ötletekkel, ütemtervvel és egy
+      őszinte értékeléssel arról, hogyan tudunk segíteni.
+    </p>
+  </div>
+
+  <div id="formWrap">
+    <form id="consultForm" action="#" method="post" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Név *</label>
+          <input type="text" id="name" name="name" placeholder="Neved" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefonszám *</label>
+          <input type="tel" id="phone" name="phone" placeholder="+36 00 000 0000" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="company">Cégnév *</label>
+          <input type="text" id="company" name="company" placeholder="Céged neve" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Céges Email Cím *</label>
+          <input type="email" id="email" name="email" placeholder="nev@ceg.hu" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="service">Mit Keresel? *</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Válassz szolgáltatást...</option>
+          <option value="film">Filmgyártás</option>
+          <option value="photo">Fotózás</option>
+          <option value="social">Social Media Kezelés</option>
+          <option value="digital">Digitális Marketing / PPC</option>
+          <option value="full">Teljes Csomag</option>
+          <option value="other">Egyéb / Még nem tudom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Meséld El a Projektedet</label>
+        <textarea id="message" name="message" placeholder="Mik a legfontosabb céljaid? Van határidő vagy büdzsé keret?"></textarea>
+      </div>
+
+      <label class="form-consent">
+        <input type="checkbox" id="consent" name="consent" required />
+        <span class="consent-text">
+          Hozzájárulok, hogy a Vishuddha Productions csapata felkeressen az érdeklődésemmel kapcsolatban.
+          Elolvastam és elfogadom az <a href="#adatvedelem">Adatvédelmi Tájékoztatót</a>, és hozzájárulok
+          személyes adataim kezeléséhez.
+        </span>
+      </label>
+
+      <div id="formError" style="display:none;color:var(--red);font-size:12px;font-weight:600;letter-spacing:1px;margin-bottom:16px;"></div>
+
+      <button type="submit" class="btn-submit">Kapcsolatfelvétel Küldése →</button>
+    </form>
+  </div>
+
+  <div id="formSuccess" style="display:none;text-align:center;padding:60px 0;">
+    <div style="font-size:40px;margin-bottom:24px;">✓</div>
+    <h3 style="font-size:26px;font-weight:900;letter-spacing:-0.5px;margin-bottom:14px;">Köszönjük!</h3>
+    <p style="font-size:16px;color:rgba(255,255,255,0.65);line-height:1.7;">
+      Hamarosan felvesszük veled a kapcsolatot.<br>Várjuk a közös munkát.
+    </p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo-wrap">
+      <div class="logo-img">VISHUDDHA</div>
+      <div class="footer-social">
+        <a href="https://instagram.com/vishuddha.productions" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Szolgáltatások</h4>
+      <ul>
+        <li><a href="#film">Filmgyártás</a></li>
+        <li><a href="#photo">Fotózás</a></li>
+        <li><a href="#social">Social Media</a></li>
+        <li><a href="#social">Digitális Marketing</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Cég</h4>
+      <ul>
+        <li><a href="#team">Rólunk</a></li>
+        <li><a href="#work">Munkáink</a></li>
+        <li><a href="#kapcsolat">Kapcsolat</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col contact-col">
+      <h4>Elérhetőség</h4>
+      <ul>
+        <li><a href="mailto:hello@vishuddhaproductions.com">hello@vishuddhaproductions.com</a></li>
+        <li><a href="tel:+36203337305">+36 20 333 7305</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© 2026 Vishuddha Productions. Minden jog fenntartva.</div>
+    <a href="#adatvedelem">Adatvédelmi Tájékoztató</a>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ══ -->
+<script>
+  // Sticky header shrink
+  const hdr = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  // Rolling word animation
+  (function() {
+    const slot  = document.getElementById('rollingSlot');
+    const track = document.getElementById('rollingWords');
+    const spans = Array.from(track.querySelectorAll('span'));
+    const count = spans.length;
+    let current = 0;
+    let itemH   = 0;
+
+    function measure() {
+      track.style.transition = 'none';
+      spans.forEach(s => { s.style.height = ''; });
+      void slot.offsetHeight;
+
+      itemH = Math.ceil(spans[0].getBoundingClientRect().height);
+
+      slot.style.height = itemH + 'px';
+      spans.forEach(s => { s.style.height = itemH + 'px'; });
+
+      let maxW = 0;
+      spans.forEach(s => { maxW = Math.max(maxW, s.scrollWidth); });
+      slot.style.width = (maxW + 2) + 'px';
+
+      track.style.transform = `translateY(-${current * itemH}px)`;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        track.style.transition = 'transform 0.55s cubic-bezier(.77,0,.175,1)';
+      }));
+    }
+
+    function step() {
+      current = (current + 1) % count;
+      track.style.transform = `translateY(-${current * itemH}px)`;
+    }
+
+    function init() { measure(); setInterval(step, 2400); }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => setTimeout(init, 900));
+    } else {
+      setTimeout(init, 1200);
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 120);
+    }, { passive: true });
+  })();
+
+  // Form validation + submit
+  document.getElementById('consultForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form    = this;
+    const errBox  = document.getElementById('formError');
+    const wrap    = document.getElementById('formWrap');
+    const success = document.getElementById('formSuccess');
+
+    const required = form.querySelectorAll('input[required], select[required]');
+    let errors = [];
+
+    required.forEach(el => {
+      const invalid = el.type === 'checkbox' ? !el.checked : !el.value.trim();
+      el.style.borderColor = invalid ? 'var(--red)' : '';
+      if (invalid) errors.push(el);
+    });
+
+    const emailEl = form.querySelector('#email');
+    if (emailEl.value.trim() && !/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(emailEl.value.trim())) {
+      emailEl.style.borderColor = 'var(--red)';
+      if (!errors.includes(emailEl)) errors.push(emailEl);
+    }
+
+    const phoneEl = form.querySelector('#phone');
+    if (phoneEl.value.trim() && phoneEl.value.replace(/\D/g, '').length < 7) {
+      phoneEl.style.borderColor = 'var(--red)';
+      if (!errors.includes(phoneEl)) errors.push(phoneEl);
+    }
+
+    if (errors.length > 0) {
+      const hasEmpty = errors.some(el => el.type !== 'checkbox' && !el.value.trim());
+      const hasCheck = errors.some(el => el.type === 'checkbox');
+      const hasBadEmail = emailEl.style.borderColor === 'var(--red)' && emailEl.value.trim();
+      const hasBadPhone = phoneEl.style.borderColor === 'var(--red)' && phoneEl.value.trim();
+
+      let msg = '';
+      if (hasEmpty || hasCheck) msg = 'Kérjük, töltsd ki az összes kötelező mezőt és fogadd el az Adatvédelmi Tájékoztatót.';
+      if (hasBadEmail) msg = msg || 'Kérjük, adj meg érvényes email címet.';
+      if (hasBadPhone) msg = (msg ? msg + ' ' : '') + 'A telefonszámnak legalább 7 számjegyet kell tartalmaznia.';
+
+      errBox.textContent = msg;
+      errBox.style.display = 'block';
+      errors[0].focus();
+      return;
+    }
+
+    errBox.style.display = 'none';
+
+    wrap.style.transition = 'opacity 0.5s ease';
+    wrap.style.opacity = '0';
+    setTimeout(() => {
+      wrap.style.display = 'none';
+      success.style.display = 'block';
+      success.style.opacity = '0';
+      success.style.transition = 'opacity 0.6s ease';
+      requestAnimationFrame(() => { success.style.opacity = '1'; });
+    }, 500);
+  });
+
+  document.getElementById('consultForm').querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', () => { el.style.borderColor = ''; });
+    el.addEventListener('change', () => { el.style.borderColor = ''; });
+  });
+</script>
+
+</body>
+</html>
