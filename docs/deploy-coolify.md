@@ -14,7 +14,11 @@ Why it is set up this way: `docs/decisions/0002-coolify-deployment.md`.
    (`https://vishuddha.<your-wildcard-domain>:4321`), or
    `https://vishuddhaproductions.com:4321` once its DNS points at the server.
    The `:4321` tells Traefik which container port to route to; visitors do not type it.
-4. **Environment variables**: set `ADMIN_PASSWORD` to a long random value. The
+   Several domains go in the same field, comma-separated. Add `www.` as well: the
+   app redirects it to the address set in Settings.
+4. **Environment variables**: Coolify lists the variables from the compose file.
+   It pre-fills `ADMIN_PASSWORD` with the placeholder text `Set ADMIN_PASSWORD`,
+   which would work as a password: replace it with a long random value. The
    rest are optional, see `coolify.env.example`. The deploy fails on purpose if
    `ADMIN_PASSWORD` is missing.
 5. **Deploy.** When the container reports healthy, open the domain.

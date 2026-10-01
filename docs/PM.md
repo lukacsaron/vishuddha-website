@@ -21,6 +21,7 @@ Design: `docs/specs/2026-10-01-site-and-cms-design.md`.
 | 11 | Dockerfile, README, final review | done |
 | 12 | Coming soon page with admin switch | done |
 | 13 | Coolify deployment: compose, named volume, health check, backup, runbook | done |
+| 14 | Deployed to production, persistence confirmed across a redeploy | done |
 
 ## Plan (build order)
 
@@ -103,7 +104,12 @@ Problems found in the first draft of the plan and what changed:
   with a preview note.
 - Rate limiting keys on the proxy-reported address (sixth enquiry from one address
   is refused, another address is not). Full backup downloads and lists correctly.
-- **Not verified:** an actual deploy on the Coolify box; SMTP delivery (no mail server configured); Safari and real phones.
+- **Live on https://vishuddhaproductions.com** (deployed 2026-10-01 through Coolify's
+  Docker Compose build pack): container healthy, runs as `node`, volume mounted at
+  `/data`, Let's Encrypt certificate, http → https, `www` → apex. Signed in, saved a
+  change, forced a rebuild and redeploy: the change was still there. A cross-site
+  save was refused (403) through the real proxy.
+- **Not verified:** SMTP delivery (no mail server configured); Safari and real phones.
 
 ## Deviations from `legacy/index.html`
 
@@ -138,8 +144,11 @@ Deliberate, all small:
 4. **Facebook / LinkedIn links**, if they exist.
 5. **Gallery**: 24 of 29 tiles are still empty placeholders, as in the original.
    Fill or delete them.
-6. **Hosting**: deploy to Coolify following `docs/deploy-coolify.md`. Nothing backs
-   the data volume up automatically, so download a full backup from the admin
-   regularly.
-7. The seed still contains "Budapest-based creative agency" in the SEO description
+6. **Backups**: nothing backs the data volume up automatically. Download a full
+   backup from the admin (History) regularly.
+7. **Admin password**: generated at deploy time; it is the `ADMIN_PASSWORD`
+   environment variable of the application in Coolify. Change it there and redeploy.
+8. **Email notifications** for enquiries need the SMTP variables set in Coolify.
+9. **Deploys are manual**: push to `main`, then Redeploy in Coolify.
+10. The seed still contains "Budapest-based creative agency" in the SEO description
    and "micro-production company" on the page, as the original did.
