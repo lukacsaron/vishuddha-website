@@ -32,7 +32,7 @@ const tel = contact.phone.replace(/[^\d+]/g, '');
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="preload" as="image" href="/media/logo.webp" fetchpriority="high" />
 </head>
-<body>
+<body class="splash">
   <img src="/media/logo.webp" alt="Vishuddha Productions" class="logo" width="831" height="439" fetchpriority="high" />
   <h1 class="wip">{title}</h1>
   <div class="line"></div>
@@ -45,25 +45,27 @@ const tel = contact.phone.replace(/[^\d+]/g, '');
 </body>
 </html>
 
+<!-- Global, and bundled into every page that imports this component even when it is
+     not rendered (the real Hungarian site does). Everything must stay under .splash. -->
 <style is:global>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root { --blue: #002fa7; --red: #dc443a; --white: #ffffff; --font: 'Montserrat Variable', 'Montserrat', sans-serif; }
-  html, body { height: 100%; }
-  body {
+  .splash, .splash *, .splash *::before, .splash *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .splash {
+    --blue: #002fa7; --red: #dc443a; --white: #ffffff; --font: 'Montserrat Variable', 'Montserrat', sans-serif;
+    min-height: 100vh; min-height: 100dvh;
     font-family: var(--font); background: var(--blue); color: var(--white);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 26px; padding: 40px 24px; text-align: center;
   }
-  .logo { height: 110px; width: auto; display: block; opacity: 0; transform: translateY(14px); animation: fadeUp 0.8s 0.1s forwards; }
-  .wip { font-size: clamp(26px, 6vw, 48px); font-weight: 900; letter-spacing: 2px; text-transform: uppercase; line-height: 1.15; opacity: 0; animation: fadeUp 0.8s 0.35s forwards; }
-  .line { width: 0; height: 2px; background: var(--white); opacity: 0.5; border-radius: 2px; animation: grow 0.9s 0.6s forwards; }
-  .sub { font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.75); opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
-  .back { display: inline-block; margin-top: 10px; background: #d34138; color: var(--white); text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 15px 34px; border-radius: 3px; opacity: 0; animation: fadeUp 0.8s 1s forwards; transition: background 0.2s, transform 0.15s; }
-  .back:hover { background: #c4372f; transform: translateY(-2px); }
-  .contact { margin-top: 18px; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: rgba(255,255,255,0.7); line-height: 2; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
-  .contact a { color: var(--white); text-decoration: none; }
-  .contact a:hover { text-decoration: underline; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes grow { from { width: 0; } to { width: 90px; } }
-  @media (max-width: 600px) { .logo { height: 78px; } .sub { font-size: 11px; letter-spacing: 1.5px; } }
+  .splash .logo { height: 110px; width: auto; display: block; opacity: 0; transform: translateY(14px); animation: splash-fade-up 0.8s 0.1s forwards; }
+  .splash .wip { font-size: clamp(26px, 6vw, 48px); font-weight: 900; letter-spacing: 2px; text-transform: uppercase; line-height: 1.15; opacity: 0; animation: splash-fade-up 0.8s 0.35s forwards; }
+  .splash .line { width: 0; height: 2px; background: var(--white); opacity: 0.5; border-radius: 2px; animation: splash-grow 0.9s 0.6s forwards; }
+  .splash .sub { font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.75); opacity: 0; animation: splash-fade-up 0.8s 0.8s forwards; }
+  .splash .back { display: inline-block; margin-top: 10px; background: #d34138; color: var(--white); text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 15px 34px; border-radius: 3px; opacity: 0; animation: splash-fade-up 0.8s 1s forwards; transition: background 0.2s, transform 0.15s; }
+  .splash .back:hover { background: #c4372f; transform: translateY(-2px); }
+  .splash .contact { margin-top: 18px; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: rgba(255,255,255,0.7); line-height: 2; opacity: 0; animation: splash-fade-up 0.8s 1.2s forwards; }
+  .splash .contact a { color: var(--white); text-decoration: none; }
+  .splash .contact a:hover { text-decoration: underline; }
+  @keyframes splash-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes splash-grow { from { width: 0; } to { width: 90px; } }
+  @media (max-width: 600px) { .splash .logo { height: 78px; } .splash .sub { font-size: 11px; letter-spacing: 1.5px; } }
 </style>

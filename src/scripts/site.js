@@ -26,6 +26,7 @@ document.querySelectorAll('.service-card').forEach((card, i) => {
   const slot  = document.getElementById('rollingSlot');
   const track = document.getElementById('rollingWords');
   if (!slot || !track) return;
+  const title = slot.closest('.hero-rolling-title');
   const spans = Array.from(track.querySelectorAll('span'));
   const count = spans.length;
   let current = 0;
@@ -35,7 +36,17 @@ document.querySelectorAll('.service-card').forEach((card, i) => {
     // Disable transition + reset inline heights for a clean measurement
     track.style.transition = 'none';
     spans.forEach(s => { s.style.height = ''; });
+    title.style.fontSize = '';
+    slot.style.width = '';
     void slot.offsetHeight; // force reflow
+
+    // A long word (Hungarian has several) shrinks the headline rather than being cut off
+    const box = getComputedStyle(title.parentElement);
+    const room = title.parentElement.clientWidth - parseFloat(box.paddingLeft) - parseFloat(box.paddingRight);
+    const widest = Math.max(...spans.map(s => s.scrollWidth));
+    if (widest > room) {
+      title.style.fontSize = Math.floor(parseFloat(getComputedStyle(title).fontSize) * room / widest) + 'px';
+    }
 
     // getBoundingClientRect gives sub-pixel accuracy; ceil so glyphs never bleed
     itemH = Math.ceil(spans[0].getBoundingClientRect().height);

@@ -1,14 +1,16 @@
 /* Additions to the original stylesheet (site.css stays a verbatim port). */
 
 /* ── CONTACT DETAILS ── */
-.contact-details { display: flex; flex-direction: column; gap: 34px; }
+.contact-details { display: flex; flex-direction: column; gap: 34px; container-type: inline-size; }
 .contact-label {
   font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
   color: var(--red); margin-bottom: 10px;
 }
 .contact-value {
   display: inline-block; color: var(--white); text-decoration: none;
-  font-size: clamp(20px, 3.4vw, 38px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2;
+  /* Sized from the column, not the window: the 30-character email is about 18.2em wide,
+     so 5.4% of the column keeps it on one line at every width. */
+  font-size: clamp(14px, 5.4cqi, 36px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2;
   overflow-wrap: anywhere;
   border-bottom: 2px solid transparent; transition: border-color 0.2s, color 0.2s;
 }
